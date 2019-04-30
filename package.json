@@ -1,0 +1,36 @@
+{
+  "name": "slow-json-stringify",
+  "version": "0.1.0",
+  "description": "The slowest JSON stringifier in the galaxy (:",
+  "source": "src/sjs.mjs",
+  "main": "dist/sjs.js",
+  "module": "dist/sjs.mjs",
+  "unpkg": "dist/sjs.umd.js",
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch",
+    "lint": "eslint src/*.mjs test/*.js",
+    "lint:fix": "eslint src/*.mjs test/*.js --fix",
+    "test": "npm run build && mocha --timeout 10000 --recursive test",
+    "ship": "rm -r dist && npm run build && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucagez/slow-json-stringify.git"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "microbundle": "^0.11.0",
+    "mocha": "^6.1.4"
+  },
+  "keywords": ["stringify", "json", "stringification", "fast"],
+  "author": "Luca Gesmundo <lucagesmundo@yahoo.it>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucagez/slow-json-stringify/issues"
+  },
+  "homepage": "https://github.com/lucagez/slow-json-stringify#readme"
+}
