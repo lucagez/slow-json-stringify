@@ -5,10 +5,32 @@ const stringify = sjs({
   b: 'number',
 });
 
-const str = stringify({
-  a: 'ciao',
-  b: 345
-});
+const str = 'dwejfoweijrfuiwehfjwheorifwefowehrfhweoriunfowieurfuhnweorunhfow"uenr  fwfjojerifwoiuenh£""rfojwneri"nwferfikjwnfjnerwojfnwejrncweojrcnwenojnojnjncsfojcvsdnfjvcnsdfjvnsfjicno';
+const escaped = str.replace(/\n|\r|\t|\"|\\/gm, char => '\\' + char);
 
-console.log(str);
-console.log(JSON.parse(str));
+const escape = str => str.replace(/\n|\r|\t|\"|\\/gm, char => '\\' + char);
+
+console.log(escaped);
+
+const test = {
+  a: escaped,
+  b: 345
+};
+
+const benchFor = (func, args, n) => {
+  const t0 = Date.now();
+  for (let i = 0; i < n; ++i) {
+    func(...args);
+  }
+  return Date.now() - t0;
+};
+
+const iter = 1000000;
+
+const native = benchFor(JSON.stringify, [test], iter);
+const sjsTest = benchFor(stringify, [test], iter);
+// const fastTest = benchFor(stringify, [testObj1], iter);
+console.log(JSON.parse(stringify(test)))
+
+console.log('native: ', native);
+console.log('sjs: ', sjsTest);
