@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="sjs.svg" height="200px" alt="sjs logo" />
+  <img src="slow-json-stringify.svg" height="200px" alt="slow-json-stringify logo" />
   <br>
-  <a href="https://travis-ci.org/lucagez/sjs"><img src="https://travis-ci.com/lucagez/sjs.svg?branch=master" alt="travis"></a>
-  <a href="https://www.npmjs.org/package/sjs"><img src="https://img.shields.io/npm/v/sjs.svg?style=flat" alt="npm"></a>
+  <a href="https://travis-ci.org/lucagez/slow-json-stringify"><img src="https://travis-ci.com/lucagez/slow-json-stringify.svg?branch=master" alt="travis"></a>
+  <a href="https://www.npmjs.org/package/slow-json-stringify"><img src="https://img.shields.io/npm/v/slow-json-stringify.svg?style=flat" alt="npm"></a>
   <img src="https://img.shields.io/badge/license-MIT-f1c40f.svg" alt="MIT">
-  <a href="https://unpkg.com/sjs"><img src="https://img.badgesize.io/https://unpkg.com/sjs/dist/sjs.js?compression=gzip" alt="gzip size"></a>
+  <a href="https://unpkg.com/slow-json-stringify"><img src="https://img.badgesize.io/https://unpkg.com/slow-json-stringify/dist/slow-json-stringify.js?compression=gzip" alt="gzip size"></a>
 </p>
 
 # SJS
