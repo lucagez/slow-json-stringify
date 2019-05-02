@@ -1,12 +1,12 @@
 # MESSAGES FOR MY FUTURE SELF
 
-> Last Update: Tue 30 Apr 17:08:29
+> Last Update: Thu  2 May 14:08:54
 
-Transferred scratchpad to real repo.
+Made some testing.
 
 # TODO
 
-- [ ] Too much testing 🎉🎉🎉
+- [x] Too much testing 🎉🎉🎉
 - [ ] Examples
-- [ ] Some error boundaries
-- [ ] Throw error is type definition is undefined => arr of allowed types
+- [x] Some error boundaries
+- [x] Throw error is type definition is undefined => arr of allowed types

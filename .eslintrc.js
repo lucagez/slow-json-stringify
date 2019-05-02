@@ -4,6 +4,10 @@ module.exports = {
         "browser": true
     },
     "extends": "airbnb-base",
+    "globals": {
+        "describe": true,
+        "it": true,
+    },
     "rules": {
         "no-case-declarations": "off",
         "object-curly-newline": "off",
