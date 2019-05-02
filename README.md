@@ -1,3 +1,12 @@
+<p align="center">
+  <img src="sjs.svg" height="200px" alt="sjs logo" />
+  <br>
+  <a href="https://travis-ci.org/lucagez/sjs"><img src="https://travis-ci.com/lucagez/sjs.svg?branch=master" alt="travis"></a>
+  <a href="https://www.npmjs.org/package/sjs"><img src="https://img.shields.io/npm/v/sjs.svg?style=flat" alt="npm"></a>
+  <img src="https://img.shields.io/badge/license-MIT-f1c40f.svg" alt="MIT">
+  <a href="https://unpkg.com/sjs"><img src="https://img.badgesize.io/https://unpkg.com/sjs/dist/sjs.js?compression=gzip" alt="gzip size"></a>
+</p>
+
 # SJS
 
 The slowest stringifier in the known universe. Just kidding, it's the fastest (:
