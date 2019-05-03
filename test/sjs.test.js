@@ -270,4 +270,38 @@ describe('Slow-json-stringifier tests', () => {
     const t = () => JSON.parse(slow);
     expect(t).to.not.throw();
   });
+
+  it('Should stringify undefined', () => {
+    const stringify = sjs({
+      hello: 'string',
+      hello1: 'number',
+      hello2: 'boolean',
+    });
+
+    const test = {
+      hello: undefined,
+      hello1: undefined,
+      hello2: undefined,
+    };
+
+    const slow = stringify(test);
+    const t = () => JSON.parse(slow);
+    expect(t).to.not.throw();
+  });
+
+  it('Should stringify Dates', () => {
+    const stringify = sjs({
+      hello: 'string',
+      hello1: 'string',
+    });
+
+    const test = {
+      hello: new Date(),
+      hello1: Date.now(),
+    };
+
+    const slow = stringify(test);
+    const t = () => JSON.parse(slow);
+    expect(t).to.not.throw();
+  });
 });

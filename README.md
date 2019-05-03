@@ -52,8 +52,12 @@ Especially when the payload grows. And incredibly when serializing json with lon
 However, `SJS` provides a little utility for your escaping needs.
 `escape` uses a default regex, if no additional regex is provided.
 
-**default regex string:** '\\n|\\r|\\t|\\"|\\\\' 
-This weird 
+**default regex string:** 
+```javascript
+/\n|\r|\t|\"|\\/gm
+``` 
+
+You can use `escape` like the following:
 
 ```javascript
 const { escape } = require('slow-json-stringifier');
@@ -75,9 +79,15 @@ customEscaper('This is "funny"'); // This is \"funny\"
 #### Supported types
 
 You can use the following types:
-- string
-- number
-- boolean
+- `string`, `Date` will be considered strings.
+- `number`
+- `boolean`, ➡ used for both `true/false` AND `null` ⬅
+- `[array-simple]`, dynamic arrais with simple structure, in this scenario native `JSON.stringify` will be used. As there are no real performance advantages.
+- `[schema]`, dynamic complex arrais. You should provide a `SJS` schema defining the structure of the objects that will make up your array.
+
+**NOTE:** `SJS` is making a template from the provided schema and inserting values where necessary. So, if `undefined` values are provided, a string containing "undefined" will be returned.
+
+**tip:** If you want to leave out certain properties from the stringified object, simply provide a schema without those properties. 
 
 #### Defining a schema
 
@@ -105,7 +115,109 @@ stringify({
 
 ```
 
+#### Defining schema with simple array
 
+When stringifying simple arrais `JSON.stringify` will be internally used.
+
+```javascript
+const { sjs } = require('slow-json-stringifier');
+
+// schema definition
+const stringify = sjs({
+  a: ['array-simple']
+});
+
+// then you can stringify anything with that structure.
+stringify({
+  a: [1, 2, 3, true, 'world'],
+});
+
+// {"a":[1,2,3,true,"world"]}
+
+```
+
+#### Defining schema with complex array
+
+This is one of the strong points of `SJS`. 
+When stringifying complex arrais a new schema is required.
+
+```javascript
+const { sjs } = require('slow-json-stringifier');
+
+// schema definition
+const stringify = sjs({
+  a: [sjs({
+    b: 'string',
+    c: 'number',
+  })]
+});
+
+// then you can stringify anything with that structure.
+stringify({
+  a: [{
+    b: 'ciao1',
+    d: 1,
+  }, {
+    b: 'ciao2',
+    d: 2,
+  }, {
+    b: 'ciao3',
+    d: 3,
+  }, {
+    b: 'ciao4',
+    d: 4,
+  }],
+});
+
+// {"a":[{"b":"ciao1","d":1},{"b":"ciao2","d":2},{"b":"ciao3","d":3},{"b":"ciao4","d":4}]}
+
+```
+
+#### Defining schema with nested objects
+
+Defining schemas with nested objects is pretty straightforward.
+
+```javascript
+const { sjs } = require('slow-json-stringifier');
+
+// schema definition
+const stringify = sjs({
+  a: {
+    b: {
+      c: 'string',
+    },
+  },
+  d: {
+    e: 'number',
+  },
+});
+
+stringify({
+  a: {
+    b: {
+      c: 'hello',
+    },
+  },
+  d: {
+    e: 'world',
+  },
+});
+
+// {"a":{"b":{"c":"hello"}},"d":{"e":"world"}}
+
+```
+
+## API
+
+#### sjs
+| param  | type    | required                           | default   | spec                                                |
+|--------|---------|------------------------------------|-----------|-----------------------------------------------------|
+| schema | object  | yes                                | undefined | Schema that defines the stringification behavior.   |
+
+#### escape
+| param | type               | required                           | default                   | spec                                                |
+|-------|--------------------|------------------------------------|---------------------------|-----------------------------------------------------|
+| regex | Regular Expression | no                                 | /\n|\r|\t|\"|\\/gm | regex used to escape text                           |
 
 ## License
 

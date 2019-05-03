@@ -16,6 +16,7 @@ module.exports = {
         "guard-for-in": "off",
         "consistent-return": "off",
         "prefer-template": "off",
-        "no-underscore-dangle": "off"
+        "no-underscore-dangle": "off",
+        "no-void": "off"
     }
 };

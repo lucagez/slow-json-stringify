@@ -25,7 +25,14 @@ const sjs = (schema) => {
       const ready = arrais.has(e)
         ? _makeArr(raw, arrais.get(e))
         : raw;
-      temp += chunks[i] + ready;
+      temp += chunks[i] + (() => {
+        if (typeof ready !== 'undefined') return ready;
+
+        // Checking if template is already wrapping value in double quotes.
+        const current = chunks[i];
+        if (current.charCodeAt(current.length - 1) === 34) return ready;
+        return '"' + ready + '"';
+      })();
     });
     return temp + lastChunk;
   };

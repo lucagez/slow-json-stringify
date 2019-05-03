@@ -1,4 +1,4 @@
-const sjs = require('../dist/sjs');
+const { sjs } = require('../dist/sjs');
 
 const stringify = sjs({
   a: 'string',
@@ -13,8 +13,9 @@ const escape = str => str.replace(/\n|\r|\t|\"|\\/gm, char => '\\' + char);
 console.log(escaped);
 
 const test = {
-  a: escaped,
-  b: 345
+  // a: escaped,
+  a: Date.now(),
+  b: undefined
 };
 
 const benchFor = (func, args, n) => {
