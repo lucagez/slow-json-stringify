@@ -47,7 +47,7 @@ It is faster simply because it performs a lot less work.
 But, if you are dealing with json with a fixed structure `SJS` will save you a ton of time.
 Especially when the payload grows. And incredibly when serializing json with long text inside (think of a blog article or a product description...).
 
-**NOTE:** `SJS` won't perform any escaping as you usually don't need it in small payloads. If you are working with big text, it could be of very little effort to store an already escaped text.
+**note:** `SJS` won't perform any escaping as you usually don't need it in small payloads. If you are working with big text, it could be of very little effort to store an already escaped text.
 
 However, `SJS` provides a little utility for your escaping needs.
 `escape` uses a default regex, if no additional regex is provided.

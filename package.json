@@ -19,14 +19,21 @@
     "url": "git+https://github.com/lucagez/slow-json-stringify.git"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "chai": "^4.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.17.2",
+    "fast-json-stringify": "^1.15.2",
     "microbundle": "^0.11.0",
     "mocha": "^6.1.4"
   },
-  "keywords": ["stringify", "json", "stringification", "fast"],
+  "keywords": [
+    "stringify",
+    "json",
+    "stringification",
+    "fast"
+  ],
   "author": "Luca Gesmundo <lucagesmundo@yahoo.it>",
   "license": "MIT",
   "bugs": {
