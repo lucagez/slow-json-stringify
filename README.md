@@ -217,7 +217,7 @@ stringify({
 #### escape
 | param | type               | required                           | default                   | spec                                                |
 |-------|--------------------|------------------------------------|---------------------------|-----------------------------------------------------|
-| regex | Regular Expression | no                                 | /\n|\r|\t|\"|\\/gm | regex used to escape text                           |
+| regex | Regular Expression | no                                 | default regex | regex used to escape text                           |
 
 ## License
 
