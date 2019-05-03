@@ -11,6 +11,29 @@
 
 The slowest stringifier in the known universe. Just kidding, it's the fastest (:
 
+## TOC
+
+  - [TL;DR](#tldr)
+  - [Installation](#installation)
+  - [How it works](#how-it-works)
+  - [Caveats](#caveats)
+  - [Benchmarks](#benchmarks)
+      - [Running the benchmarks](#running-the-benchmarks)
+      - [Test machine](#test-machine)
+      - [Some numbers](#some-numbers)
+  - [Usage](#usage)
+      - [Supported types](#supported-types)
+      - [Defining a schema](#defining-a-schema)
+      - [Defining schema with simple array](#defining-schema-with-simple-array)
+      - [Defining schema with complex array](#defining-schema-with-complex-array)
+      - [Defining schema with nested objects](#defining-schema-with-nested-objects)
+  - [API](#api)
+      - [sjs](#sjs)
+      - [escape](#escape)
+  - [License](#license)
+
+
+
 ## TL;DR
 
 `SJS` shows a significant increase in performance over both native `JSON.stringify` and `fast-json-stringify`.
@@ -20,6 +43,8 @@ There are use cases (for example huge arrays of object with very short text) in 
 
 It's worth noting that `SJS` does not have the flexibility of both `JSON.stringify` and `fast-json-stringify`.
 But, the crazy performance improvement and the ease of schema definition might make `SJS` a good fit for you.
+
+Checkout [benchmarks](#benchmarks).
 
 ## Installation
 
