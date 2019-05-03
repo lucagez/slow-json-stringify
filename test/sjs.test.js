@@ -238,4 +238,36 @@ describe('Slow-json-stringifier tests', () => {
 
     expect(t).to.not.throw();
   });
+
+  it('Should escape strings when providing custom regex', () => {
+    const stringify = sjs({
+      hello: 'string',
+    });
+
+    const unescapedString = '"Hello World"';
+    const escapedString = escape(/\"/gm)(unescapedString);
+
+    const test = {
+      hello: escapedString,
+    };
+
+    const slow = stringify(test);
+    const t = () => JSON.parse(slow);
+
+    expect(t).to.not.throw();
+  });
+
+  it('Should stringify null', () => {
+    const stringify = sjs({
+      hello: 'boolean',
+    });
+
+    const test = {
+      hello: null,
+    };
+
+    const slow = stringify(test);
+    const t = () => JSON.parse(slow);
+    expect(t).to.not.throw();
+  });
 });

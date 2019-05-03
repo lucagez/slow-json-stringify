@@ -9,7 +9,7 @@ const sjs = (schema) => {
 
   // Building regex that match every prop => Used to enqueue props
   // => So they will be picked in correct order when building final string.
-  const regex = new RegExp(`${props}"(string|number|boolean)"|\\[(.*?)\\]`, 'gm');
+  const regex = new RegExp(`${props}"(string|number|boolean|undef)"|\\[(.*?)\\]`, 'gm');
 
   const { queue, chunks } = _makeQueue(str, regex);
   const lastChunk = chunks[chunks.length - 1];

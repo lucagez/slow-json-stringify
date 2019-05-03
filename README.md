@@ -47,18 +47,65 @@ It is faster simply because it performs a lot less work.
 But, if you are dealing with json with a fixed structure `SJS` will save you a ton of time.
 Especially when the payload grows. And incredibly when serializing json with long text inside (think of a blog article or a product description...).
 
-**NOTE:** `SJS` won't perform any escaping as you usually don't need it in small payloads. If you work with big text, it's of very little effort to store an already escaped text.
+**NOTE:** `SJS` won't perform any escaping as you usually don't need it in small payloads. If you are working with big text, it could be of very little effort to store an already escaped text.
 
-Here is a micro utility for your escaping needs:
+However, `SJS` provides a little utility for your escaping needs.
+`escape` uses a default regex, if no additional regex is provided.
+
+**default regex string:** '\\n|\\r|\\t|\\"|\\\\' 
+This weird 
 
 ```javascript
-const escape = str => str.replace(/\n|\r|\t|\"|\\/gm, char => '\\' + char);
+const { escape } = require('slow-json-stringifier');
 
-// e.g.
-escape('This is "funny"'); // This is \"funny\"
+// If you don't pass any additional regex, a default one will be used.
+const escaper = escape();
+
+escaper('This is "funny"'); // This is \"funny\"
+
+// You can pass any regex you want for your escaping strategy.
+const customEscaper = escape(/\"/gm);
+
+customEscaper('This is "funny"'); // This is \"funny\"
+
 ```
 
 ## Usage
+
+#### Supported types
+
+You can use the following types:
+- string
+- number
+- boolean
+
+#### Defining a schema
+
+For a correct stringification of your json payload, a correct schema is mandatory.
+Defining a schema is pretty handy and not verbose at all.
+
+```javascript
+const { sjs } = require('slow-json-stringifier');
+
+// schema definition
+const stringify = sjs({
+  a: 'string',
+  b: 'number',
+  c: 'boolean',
+});
+
+// then you can stringify anything with that structure.
+stringify({
+  a: 'world',
+  b: 42,
+  c: true,
+});
+
+// {"a":"world","b":42,"c":true}
+
+```
+
+
 
 ## License
 

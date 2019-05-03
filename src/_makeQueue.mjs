@@ -10,6 +10,7 @@ export default (str, regex) => {
         // returning __par__ enclosed by ""
         // => When splitting there will be a " on each side.
         case '"string"':
+        case '"undefined"':
           return '"__par__"';
 
         // When stringifying a function inside an array [null] is returned.
