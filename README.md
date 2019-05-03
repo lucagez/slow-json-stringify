@@ -37,7 +37,7 @@ The slowest stringifier in the known universe. Just kidding, it's the fastest (:
 ## TL;DR
 
 `SJS` shows a significant increase in performance over both native `JSON.stringify` and `fast-json-stringify`.
-Sometimes, for some use cases (dealing with long text), it is $10^4$ order of magnitude faster than both native and `fast-json-stringify`.
+Sometimes, for some use cases (dealing with long text), it performs 10^4 faster than both native and `fast-json-stringify`.
 In more varied use cases the performance improvement is of 10%-400%.
 There are use cases (for example huge arrays of object with very short text) in which `SJS` performs slower than native.
 
