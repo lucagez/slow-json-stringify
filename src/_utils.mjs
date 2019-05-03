@@ -37,8 +37,18 @@ const _makeArr = (array, method) => {
   return '[' + acc.substr(0, acc.length - 1) + ']';
 };
 
+// Little utility for escaping convenience.
+// => if no regex is provided, a default one will be used.
+const escape = (regexStr) => {
+  const usedStr = regexStr || '\\n|\\r|\\t|\\"|\\\\';
+  const usedRegex = new RegExp(usedStr, 'gm');
+
+  return str => str.replace(usedRegex, char => '\\' + char);
+};
+
 export {
   _deepPath,
   _deepFind,
   _makeArr,
+  escape,
 };

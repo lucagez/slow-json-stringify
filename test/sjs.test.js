@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const sjs = require('../dist/sjs');
+const { sjs, escape } = require('../dist/sjs');
 
 describe('Slow-json-stringifier tests', () => {
   it('Should throw if unknown type is provided when defining a schema', () => {
@@ -213,6 +213,24 @@ describe('Slow-json-stringifier tests', () => {
           d: 1.323289,
         },
       }],
+    };
+
+    const slow = stringify(test);
+    const t = () => JSON.parse(slow);
+
+    expect(t).to.not.throw();
+  });
+
+  it('Should escape strings and parse correctly', () => {
+    const stringify = sjs({
+      hello: 'string',
+    });
+
+    const unescapedString = '"Hello World"';
+    const escapedString = escape()(unescapedString);
+
+    const test = {
+      hello: escapedString,
     };
 
     const slow = stringify(test);
