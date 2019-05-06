@@ -167,7 +167,7 @@ fast-json-stringify x 3,337,796 ops/sec ±1.62% (87 runs sampled)
 slow-json-stringify x 4,636,561 ops/sec ±3.18% (88 runs sampled)
 ```
 
-**nested-props-short-text:**
+**much-props-short-text:**
 ```bash
 # `SJS` is faster on more properties and short text
 
