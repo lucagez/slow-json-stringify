@@ -69,12 +69,28 @@ const slowStringify = sjs({
   n: 'string',
 });
 
+const res = [];
+
+const percentageDiff = (arr) => {
+  const use = arr.sort((a, b) => b - a);
+  return (use[0] - use[1]) / use[1] * 100;
+};
+
+console.log('```bash');
 
 suite
   .add('native', () => JSON.stringify(obj))
   .add('fast-json-stringify', () => fastStringify(obj))
   .add('slow-json-stringify', () => slowStringify(obj))
-  .on('cycle', (event) => console.log(String(event.target)))
+  .on('cycle', (event) => {
+    res.push(Math.floor(event.target.hz));
+    console.log(String(event.target))
+  })
+  .on('complete', function () {
+    const fastest = this.filter('fastest').map('name');
+    console.log(`\n# ${fastest} is +${percentageDiff(res).toFixed(2)}% faster`);
+    console.log('\n```\n');
+  })
   .run();
 
 // If you need to send a lot of text over the wire `SJS` is like the fastest thing in the galaxy.
