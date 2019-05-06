@@ -30,9 +30,9 @@ const sjs = (schema) => {
   return (obj) => {
     let temp = '';
 
-
+    // Ditching old implementation for a faster for-loop
     let i = 0;
-    for (; ;) {
+    for (;;) {
       if (i === length) break;
 
       const current = queue[i];
@@ -48,23 +48,6 @@ const sjs = (schema) => {
       i += 1;
     }
 
-    // queue.forEach((e, i) => {
-    //   const raw = _deepFind(obj, map[e]);
-
-    //   // Arrais need a different treatment
-    //   // => This will make possible the stringification of an arbitrary number of arrais
-    //   const ready = arrais.has(e)
-    //     ? _makeArr(raw, arrais.get(e))
-    //     : raw;
-    //   temp += chunks[i] + (() => {
-    //     if (typeof ready !== 'undefined') return ready;
-
-    //     // Checking if template is already wrapping value in double quotes.
-    //     const current = chunks[i];
-    //     if (current.charCodeAt(current.length - 1) === 34) return ready;
-    //     return '"' + ready + '"';
-    //   })();
-    // });
     return temp + lastChunk;
   };
 };
