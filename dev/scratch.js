@@ -1,22 +1,17 @@
-const { sjs } = require('../dist/sjs');
+const { sjs, escape } = require('../dist/sjs');
 
 const stringify = sjs({
   a: 'string',
   b: 'number',
 });
 
-const str = 'dwejfoweijrfuiwehfjwheorifwefowehrfhweoriunfowieurfuhnweorunhfow"uenr  fwfjojerifwoiuenh£""rfojwneri"nwferfikjwnfjnerwojfnwejrncweojrcnwenojnojnjncsfojcvsdnfjvcnsdfjvnsfjicno';
-const escaped = str.replace(/\n|\r|\t|\"|\\/gm, char => '\\' + char);
-
-const escape = str => str.replace(/\n|\r|\t|\"|\\/gm, char => '\\' + char);
-
-console.log(escaped);
-
 const test = {
   // a: escaped,
-  a: Date.now(),
+  a: escape()('pappa\\perp'),
   b: undefined
 };
+
+console.log(escape()('pappa\\perp'));
 
 const benchFor = (func, args, n) => {
   const t0 = Date.now();
