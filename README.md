@@ -124,7 +124,7 @@ To run your tests:
 - Clone this repo.
 - Install dependencies.
 - `cd benchmark`.
-- Grant executable rigths to `run.sh` script `chmod +x ./run.sh`.
+- Grant executable rights to `run.sh` script `chmod +x ./run.sh`.
 - Save benchmark results to file `./run.sh >> benchmark.md`
 
 #### Test machine
@@ -146,8 +146,8 @@ The following types are supported:
 - `string`, `Date` will be considered strings.
 - `number`
 - `boolean`, ➡ used for both `true/false` AND `null` ⬅
-- `[array-simple]`, dynamic arrais with simple structure, in this scenario native `JSON.stringify` will be used. As there are no real performance advantages.
-- `[schema]`, dynamic complex arrais. You should provide a `SJS` schema defining the structure of the objects that will make up your array.
+- `[array-simple]`, dynamic array with simple structure, in this scenario native `JSON.stringify` will be used. As there are no real performance advantages.
+- `[schema]`, dynamic complex array. You should provide a `SJS` schema defining the structure of the objects that will make up your array.
 
 **NOTE:** `SJS` is making a template from the provided schema and inserting values where necessary. So, if `undefined` values are provided, a string containing "undefined" will be returned.
 
@@ -181,7 +181,7 @@ stringify({
 
 #### Defining schema with simple array
 
-When stringifying simple arrais `JSON.stringify` will be internally used.
+When stringifying simple array `JSON.stringify` will be internally used.
 
 ```javascript
 const { sjs } = require('slow-json-stringifier');
@@ -203,7 +203,7 @@ stringify({
 #### Defining schema with complex array
 
 This is one of the strong points of `SJS`. 
-When stringifying complex arrais a new schema is required.
+When stringifying complex array a new schema is required.
 
 ```javascript
 const { sjs } = require('slow-json-stringifier');
