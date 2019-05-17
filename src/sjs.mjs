@@ -30,15 +30,14 @@ const sjs = (schema) => {
   return (obj) => {
     let temp = '';
 
-    // Ditching old implementation for a faster for-loop
+    // Ditching old implementation for a **MUCH** faster while
     let i = 0;
-    for (;;) {
+    while (true) {
       if (i === length) break;
-
       const current = queue[i];
       const raw = _deepFind(obj, map[current]);
 
-      // Arrais need a different treatment
+      // An array needs a different treatment
       // => This will make possible the stringification of an arbitrary number of arrais
       const ready = arrais.has(current)
         ? _makeArr(raw, arrais.get(current))

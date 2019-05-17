@@ -17,6 +17,8 @@ module.exports = {
         "consistent-return": "off",
         "prefer-template": "off",
         "no-underscore-dangle": "off",
-        "no-void": "off"
+        "no-void": "off",
+        "no-plusplus": "off",
+        "no-constant-condition": "off"
     }
 };
