@@ -37,22 +37,6 @@ const _makeArr = (array, method) => {
   return '[' + acc.substr(0, acc.length - 1) + ']';
 };
 
-const _validator = (value) => {
-  // Declaring allowed types.
-  const allowedTypes = new Set(['number', 'string', 'boolean', 'undefined', 'array-simple', 'function']);
-
-  if (Array.isArray(value)) {
-    if (allowedTypes.has(value[0]) || allowedTypes.has(typeof value[0])) return;
-
-    // Throwing if inside array is found anything else than "array-simple" or new sjs schema
-    throw new Error(`Expected either "array-simple" or a function. received ${value}`);
-  } else if (typeof value !== 'function' && !allowedTypes.has(value)) {
-    // Throwing on illegal types
-    // => Mainly protecting users from typo.
-    throw new Error(`Expected one of: "number", "string", "boolean", "undefined". received ${value}`);
-  }
-};
-
 // Little utility for escaping convenience.
 // => if no regex is provided, a default one will be used.
 const escape = (regex) => {
@@ -73,7 +57,7 @@ const _scv = (parentObj, allowed) => {
   // However it's OK for this use case as the queue creation is not time critical.
   (function scoped(obj, acc = []) {
     const isArray = Array.isArray(obj);
-    if (types.has(obj) || isArray) {
+    if (types.has(_deepFind(parentObj, acc)) || isArray) {
       queue.push({
         // Storing iside a unique queue is the current prop is an array or not
         isArray,
@@ -88,6 +72,7 @@ const _scv = (parentObj, allowed) => {
         // a type check during stringification as the `deepFind` function accepts an array
         // as argument.
         path: [acc].flat(),
+        type: obj,
       });
       return;
     }
@@ -101,6 +86,31 @@ const _scv = (parentObj, allowed) => {
   })(parentObj);
 
   return queue;
+};
+
+// If this function does not throw => the provided schema is valid.
+// JSON.stringify is used only for convenience as it let's you iterate though every
+// object property.
+const _validator = (obj) => {
+  // Declaring allowed types.
+  const allowedTypes = new Set(['number', 'string', 'boolean', 'undefined', 'array-simple', 'function']);
+
+  JSON.stringify(obj, (_, value) => {
+    const isArray = Array.isArray(value);
+    if (typeof value !== 'object' || isArray) {
+      if (isArray) {
+        if (allowedTypes.has(value[0]) || allowedTypes.has(typeof value[0])) return;
+
+        // Throwing if inside array is found anything else than "array-simple" or new sjs schema
+        throw new Error(`Expected either "array-simple" or a function. received ${value}`);
+      } else if (typeof value !== 'function' && !allowedTypes.has(value)) {
+        // Throwing on illegal types
+        // => Mainly protecting users from typo.
+        throw new Error(`Expected one of: "number", "string", "boolean", "undefined". received ${value}`);
+      }
+    }
+    return value;
+  });
 };
 
 export {

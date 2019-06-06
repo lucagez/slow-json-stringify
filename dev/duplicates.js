@@ -17,7 +17,7 @@ const schema = {
       }
     }
   },
-  b: 'string',
+  string: 'string',
   5: ['array-simple']
 };
 
@@ -38,9 +38,12 @@ const test = {
       }
     }
   },
-  b: 'bello',
+  string: 'bello',
   5: [1, 2, 3, 4, 5],
 };
+
+// const _deepFind = (obj, path) => path.reduce((a, b) => a && a[b], obj);
+// console.log(_deepFind(schema, ['strin']))
 
 const stringify = sjs(schema);
 
