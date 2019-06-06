@@ -1,6 +1,6 @@
 import { _validator } from './_utils';
 
-export default schema => JSON.stringify(schema, (prop, value) => {
+export default schema => JSON.stringify(schema, (_, value) => {
   const isArray = Array.isArray(value);
   if (typeof value !== 'object' || isArray) {
     // Check if the provided schema is correct

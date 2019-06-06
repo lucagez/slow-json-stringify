@@ -7,11 +7,11 @@ const _makeArr = (array, method) => {
   // Stringifying more complex array using the provided sjs schema
   let acc = '';
   for (const a of array) {
-    acc += method(a) + ',';
+    acc += `${method(a)},`;
   }
 
   // Removing last comma.
-  return '[' + acc.substr(0, acc.length - 1) + ']';
+  return `[${acc.slice(0, acc.length - 1)}]`;
 };
 
 const _validator = (value) => {
