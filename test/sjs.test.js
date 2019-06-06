@@ -304,4 +304,25 @@ describe('Slow-json-stringifier tests', () => {
     const t = () => JSON.parse(slow);
     expect(t).to.not.throw();
   });
+
+  it('Should stringify correctly given same property names', () => {
+    const stringify = sjs({
+      a: 'string',
+      b: {
+        a: 'string',
+      },
+    });
+
+    const test = {
+      a: 'a',
+      b: {
+        a: 'a1',
+      },
+    };
+    const slow = stringify(test);
+    const t = JSON.parse(slow);
+
+    expect(t.a).to.be.equal('a');
+    expect(t.b.a).to.be.equal('a1');
+  });
 });
