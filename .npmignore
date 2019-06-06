@@ -1,8 +1,11 @@
 dev/
-dist/
 examples/
 test/
+benchmark/
 
 .travis.yml
 .eslintrc.js
 .eslintignore
+README.md
+benchmark.md
+sjs.svg
