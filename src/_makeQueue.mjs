@@ -1,33 +1,51 @@
-export default (str, regex) => {
+import { _deepFind } from './_utils';
+
+export default (preparedSchema, originalSchema) => {
   const queue = [];
 
-  // Replacing types with a string that will make possible:
-  // - Inserting value without adding / removing additional charachters.
-  // - Split templated string in chunks for easier / faster insertion
-  const chunks = str
-    .replace(regex, (type) => {
-      switch (type) {
-        // returning __par__ enclosed by ""
-        // => When splitting there will be a " on each side.
-        case '"string__sjs"':
-        case '"undefined__sjs"':
-          return '"__par__"';
+  // Storing the allowed types is useful to know if we are arrived at the deepest level.
+  // If the current value is one of types => the accumulator is storing the path to reach the
+  // target prop.
+  const allowedValues = new Set(['number__sjs', 'string__sjs', 'boolean__sjs', 'undefined__sjs']);
 
-        // When stringifying a function inside an array [null] is returned.
-        // => Using [null] as an identifier for array schema.
-        case '"number__sjs"':
-        case '"boolean__sjs"':
-        case '["array-simple__sjs"]':
-        case '[null]':
-          return '__par__';
-        default:
-          // Pushing prop to queue => prop is enclosed by "" => matching before pushing
-          const prop = type.match(/(?<=\").+?(?=\")/)[0];
-          queue.push(prop);
-          return type;
-      }
-    })
-    .split('__par__');
+  // Defining a function inside an other function is slow.
+  // However it's OK for this use case as the queue creation is not time critical.
+  (function scoped(obj, acc = []) {
+    const isArray = Array.isArray(obj);
+    if (allowedValues.has(_deepFind(preparedSchema, acc)) || isArray) {
+      queue.push({
+        // Storing iside a unique queue is the current prop is an array or not
+        isArray,
+        // If the current prop is an array, the array stringification method is stored too.
+        // The method for the array stringification, in SJS, is always stored at 0 position.
+        method: (() => {
+          if (!isArray) return false;
+          if (typeof obj[0] === 'string') return 'array-simple';
 
-  return { queue, chunks };
+          // In the prepared schema, due to making the chunks, the functions provided
+          // are converted into NULL.
+          // So, the method is retrieved from the original schema.
+          return _deepFind(originalSchema, acc)[0];
+        })(),
+
+        // The accumulator is geting one level deeper on each recursive
+        // iteration => flattening on each insertion.
+        // Wrapping `acc` inside an array because, if the prop is found at top level,
+        // a string is pushed inside the queue. Making it already an array will avoid
+        // a type check during stringification as the `deepFind` function accepts an array
+        // as argument.
+        path: [acc].flat(),
+      });
+      return;
+    }
+
+    // Recursively going deeper.
+    // NOTE: While going deeper, the current prop is pushed into the accumulator
+    // to keep track of the position inside of the object.
+    return Object
+      .keys(obj)
+      .map(prop => scoped(obj[prop], [...acc, prop]));
+  })(preparedSchema);
+
+  return queue;
 };

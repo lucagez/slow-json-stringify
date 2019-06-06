@@ -18,7 +18,9 @@ const schema = {
     }
   },
   string: 'string',
-  5: ['array-simple']
+  5: [sjs({
+    hello: 'string'
+  })]
 };
 
 const test = {

@@ -1,6 +1,7 @@
-import _dissectSchema from './_dissectSchema';
+import _prepareString from './_prepareString';
 import _makeQueue from './_makeQueue';
-import { _deepFind, _makeArr, _validator, _allowedTypes, escape } from './_utils';
+import _makeChunks from './_makeChunks';
+import { _deepFind, _makeArr, escape } from './_utils';
 
 const wrapper = chunks => (value, index) => {
   if (typeof value !== 'undefined') return value;
@@ -15,15 +16,22 @@ const wrapper = chunks => (value, index) => {
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
 const sjs = (schema) => {
-  const { str, queue } = _dissectSchema(schema);
+  const preparedString = _prepareString(schema);
 
   // Building regex that match every prop => Used to enqueue props
   // => So they will be picked in correct order when building final string.
   const regex = new RegExp('"(string__sjs|number__sjs|boolean__sjs|undefined__sjs)"|\\[(.*?)\\]', 'gm');
 
-  const { chunks } = _makeQueue(str, regex);
+  const chunks = _makeChunks(preparedString, regex);
   const lastChunk = chunks[chunks.length - 1];
   const readyOrWrapped = wrapper(chunks);
+
+  const preparedSchema = JSON.parse(preparedString);
+
+  // Providing preparedSchema for univocal correspondence between created queue and chunks.
+  // Provided original schema to keep track of the original properties that gets destroied
+  // during schema preparation => e.g. array stringification method.
+  const queue = _makeQueue(preparedSchema, schema);
 
   const { length } = queue;
   // Exposed function
