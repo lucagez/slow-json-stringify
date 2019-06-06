@@ -19,6 +19,7 @@ module.exports = {
         "no-underscore-dangle": "off",
         "no-void": "off",
         "no-plusplus": "off",
-        "no-constant-condition": "off"
+        "no-constant-condition": "off",
+        "wrap-iife": "off"
     }
 };
