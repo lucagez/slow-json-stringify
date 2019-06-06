@@ -15,13 +15,13 @@ const wrapper = chunks => (value, index) => {
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
 const sjs = (schema) => {
-  const { map, arrais, props, str } = _dissectSchema(schema);
+  const { props, str, queue } = _dissectSchema(schema);
 
   // Building regex that match every prop => Used to enqueue props
   // => So they will be picked in correct order when building final string.
   const regex = new RegExp(`${props}"(string|number|boolean|undef)"|\\[(.*?)\\]`, 'gm');
 
-  const { queue, chunks } = _makeQueue(str, regex);
+  const { chunks } = _makeQueue(str, regex);
   const lastChunk = chunks[chunks.length - 1];
   const readyOrWrapped = wrapper(chunks);
 
@@ -34,13 +34,13 @@ const sjs = (schema) => {
     let i = 0;
     while (true) {
       if (i === length) break;
-      const current = queue[i];
-      const raw = _deepFind(obj, map[current]);
+      const { path, method, isArray } = queue[i];
+      const raw = _deepFind(obj, path);
 
       // An array needs a different treatment
       // => This will make possible the stringification of an arbitrary number of arrais
-      const ready = arrais.has(current)
-        ? _makeArr(raw, arrais.get(current))
+      const ready = isArray
+        ? _makeArr(raw, method)
         : raw;
       temp += chunks[i] + readyOrWrapped(ready, i);
 

@@ -1,4 +1,4 @@
-import { _deepPath, _validator } from './_utils';
+import { _deepPath, _validator, _scv } from './_utils';
 
 export default (schema) => {
   // `map` will keep track of the paths of every nested prop
@@ -29,5 +29,5 @@ export default (schema) => {
     return value;
   });
 
-  return { map, arrais, props, str };
+  return { map, arrais, props, str, queue: _scv(schema, ['string', 'number', 'boolean', 'array']) };
 };

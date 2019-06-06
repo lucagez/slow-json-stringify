@@ -21,8 +21,30 @@ const schema = {
   5: ['array-simple']
 };
 
+const test = {
+  a: {
+    b: {
+      c: 'ciao',
+    },
+    d: {
+      e: 'ciaone',
+      c: 1,
+      a: 12,
+      g: {
+        f: {
+          l: 'lol',
+          a: 25,
+        }
+      }
+    }
+  },
+  b: 'bello',
+  5: [1, 2, 3, 4, 5],
+};
+
 const stringify = sjs(schema);
 
+console.log(JSON.parse(stringify(test)));
 
 // const isProp = types => prop => types.has(prop);
 // const check = isProp(types);
@@ -70,12 +92,12 @@ const scv = (obj, allowed) => {
   return queue;
 };
 
-const queue = scv(schema, ['string', 'number', 'boolean', 'array']);
+// const queue = scv(schema, ['string', 'number', 'boolean', 'array']);
 // flatter(t);
-console.log(queue);
+// console.log(queue);
 
-JSON.stringify(schema, (key, value) => {
-  console.log(`${key} ${typeof value === 'string' ? value : ''}`);
-  return value;
-})
+// JSON.stringify(schema, (key, value) => {
+//   console.log(`${key} ${typeof value === 'string' ? value : ''}`);
+//   return value;
+// })
 
