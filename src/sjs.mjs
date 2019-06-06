@@ -1,6 +1,6 @@
 import _dissectSchema from './_dissectSchema';
 import _makeQueue from './_makeQueue';
-import { _deepFind, _makeArr, _validator, escape } from './_utils';
+import { _deepFind, _makeArr, _validator, _allowedTypes, escape } from './_utils';
 
 const wrapper = chunks => (value, index) => {
   if (typeof value !== 'undefined') return value;
@@ -15,13 +15,11 @@ const wrapper = chunks => (value, index) => {
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
 const sjs = (schema) => {
-  _validator(schema);
-
-  const { props, str, queue } = _dissectSchema(schema);
+  const { str, queue } = _dissectSchema(schema);
 
   // Building regex that match every prop => Used to enqueue props
   // => So they will be picked in correct order when building final string.
-  const regex = new RegExp(`${props}"(string|number|boolean|undef)"|\\[(.*?)\\]`, 'gm');
+  const regex = new RegExp('"(string__sjs|number__sjs|boolean__sjs|undefined__sjs)"|\\[(.*?)\\]', 'gm');
 
   const { chunks } = _makeQueue(str, regex);
   const lastChunk = chunks[chunks.length - 1];
