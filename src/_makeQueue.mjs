@@ -28,13 +28,11 @@ export default (preparedSchema, originalSchema) => {
           return _deepFind(originalSchema, acc)[0];
         })(),
 
-        // The accumulator is geting one level deeper on each recursive
-        // iteration => flattening on each insertion.
         // Wrapping `acc` inside an array because, if the prop is found at top level,
         // a string is pushed inside the queue. Making it already an array will avoid
-        // a type check during stringification as the `deepFind` function accepts an array
-        // as argument.
-        path: [acc].flat(),
+        // a type check during stringification as the `deepFind` function accepts only
+        // arrais as arguments.
+        path: Array.isArray(acc) ? acc : [acc],
       });
       return;
     }
