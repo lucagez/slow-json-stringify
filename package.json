@@ -1,6 +1,6 @@
 {
   "name": "slow-json-stringify",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "The slowest JSON stringifier in the galaxy (:",
   "source": "src/sjs.mjs",
   "main": "dist/sjs.js",
