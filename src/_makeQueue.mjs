@@ -6,7 +6,12 @@ export default (preparedSchema, originalSchema) => {
   // Storing the allowed types is useful to know if we are arrived at the deepest level.
   // If the current value is one of types => the accumulator is storing the path to reach the
   // target prop.
-  const allowedValues = new Set(['number__sjs', 'string__sjs', 'boolean__sjs', 'undefined__sjs']);
+  const allowedValues = new Set([
+    'number__sjs',
+    'string__sjs',
+    'boolean__sjs',
+    'undefined__sjs',
+  ]);
 
   // Defining a function inside an other function is slow.
   // However it's OK for this use case as the queue creation is not time critical.

@@ -28,7 +28,14 @@ const _makeArr = (array, method) => {
 
 const _validator = (value) => {
   // Declaring allowed types.
-  const allowedTypes = new Set(['number', 'string', 'boolean', 'undefined', 'array-simple', 'function']);
+  const allowedTypes = new Set([
+    'number',
+    'string',
+    'boolean',
+    'undefined',
+    'array-simple',
+    'function',
+  ]);
 
   if (Array.isArray(value)) {
     if (allowedTypes.has(value[0]) || allowedTypes.has(typeof value[0])) return;
