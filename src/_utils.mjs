@@ -18,12 +18,15 @@ const _makeArr = (array, method) => {
 
   // Stringifying more complex array using the provided sjs schema
   let acc = '';
-  for (const a of array) {
-    acc += `${method(a)},`;
+  const { length } = array;
+  for (let i = 0; i < length - 1; i++) {
+    acc += `${method(array[i])},`;
   }
 
-  // Removing last comma.
-  return `[${acc.slice(0, acc.length - 1)}]`;
+  // Prevent slice for removing unnecessary comma.
+  acc += method(array[length - 1]);
+
+  return `[${acc}]`;
 };
 
 const _validator = (value) => {
