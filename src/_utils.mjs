@@ -51,11 +51,9 @@ const _validator = (value) => {
 
 // Little utility for escaping convenience.
 // => if no regex is provided, a default one will be used.
-const escape = (regex) => {
-  const usedRegex = regex || new RegExp('\\n|\\r|\\t|\\"|\\\\', 'gm');
 
-  return str => str.replace(usedRegex, char => '\\' + char);
-};
+const defaultRegex = new RegExp('\\n|\\r|\\t|\\"|\\\\', 'gm');
+const escape = (regex = defaultRegex) => str => str.replace(regex, char => '\\' + char);
 
 export {
   _find,
