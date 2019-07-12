@@ -3,6 +3,9 @@ const { sjs, escape } = require('../dist/sjs');
 const stringify = sjs({
   a: 'string',
   b: 'number',
+  c: {
+    a: 'string',
+  }
 });
 
 const test = {
@@ -23,10 +26,18 @@ const benchFor = (func, args, n) => {
 
 const iter = 1000000;
 
-const native = benchFor(JSON.stringify, [test], iter);
-const sjsTest = benchFor(stringify, [test], iter);
-// const fastTest = benchFor(stringify, [testObj1], iter);
-console.log(JSON.parse(stringify(test)))
+// const native = benchFor(JSON.stringify, [test], iter);
+// const sjsTest = benchFor(stringify, [test], iter);
+// // const fastTest = benchFor(stringify, [testObj1], iter);
+// console.log(JSON.parse(stringify(test)))
 
-console.log('native: ', native);
-console.log('sjs: ', sjsTest);
+// console.log('native: ', native);
+// console.log('sjs: ', sjsTest);
+
+console.log(stringify({
+  a: 'hello',
+  b: 23,
+  c: {
+    a: 'lol',
+  }
+}));

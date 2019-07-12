@@ -1,5 +1,17 @@
-// Reducing object to final value
-const _deepFind = (obj, path) => path.reduce((a, b) => a && a[b], obj);
+
+
+const _find = (path) => {
+  const { length } = path;
+
+  let str = 'obj';
+
+  for (let i = 0; i < length; i++) {
+    str = str.replace(/^/, '(');
+    str += ` || {}).${path[i]}`;
+  }
+
+  return eval(`((obj) => ${str})`);
+};
 
 const _makeArr = (array, method) => {
   if (method === 'array-simple') return JSON.stringify(array);
@@ -39,7 +51,7 @@ const escape = (regex) => {
 };
 
 export {
-  _deepFind,
+  _find,
   _makeArr,
   _validator,
   escape,

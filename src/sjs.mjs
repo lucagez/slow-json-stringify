@@ -1,7 +1,7 @@
 import _prepareString from './_prepareString';
 import _makeQueue from './_makeQueue';
 import _makeChunks from './_makeChunks';
-import { _deepFind, _makeArr, escape } from './_utils';
+import { _makeArr, escape } from './_utils';
 
 const wrapper = chunks => (value, index) => {
   if (typeof value !== 'undefined') return value;
@@ -42,8 +42,8 @@ const sjs = (schema) => {
     let i = 0;
     while (true) {
       if (i === length) break;
-      const { path, method, isArray } = queue[i];
-      const raw = _deepFind(obj, path);
+      const { method, isArray, find } = queue[i];
+      const raw = find(obj);
 
       // An array needs a different treatment
       // => This will make possible the stringification of an arbitrary number of arrais

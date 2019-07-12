@@ -20,6 +20,7 @@ module.exports = {
         "no-void": "off",
         "no-plusplus": "off",
         "no-constant-condition": "off",
-        "wrap-iife": "off"
+        "wrap-iife": "off",
+        "no-eval": "off",
     }
 };

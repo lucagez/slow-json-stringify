@@ -1,4 +1,4 @@
-import { _deepFind } from './_utils';
+import { _find } from './_utils';
 
 export default (preparedSchema, originalSchema) => {
   const queue = [];
@@ -12,7 +12,7 @@ export default (preparedSchema, originalSchema) => {
   // However it's OK for this use case as the queue creation is not time critical.
   (function scoped(obj, acc = []) {
     const isArray = Array.isArray(obj);
-    if (allowedValues.has(_deepFind(preparedSchema, acc)) || isArray) {
+    if (allowedValues.has(_find(acc)(preparedSchema)) || isArray) {
       queue.push({
         // Storing iside a unique queue is the current prop is an array or not
         isArray,
@@ -25,14 +25,17 @@ export default (preparedSchema, originalSchema) => {
           // In the prepared schema, due to making the chunks, the functions provided
           // are converted into NULL.
           // So, the method is retrieved from the original schema.
-          return _deepFind(originalSchema, acc)[0];
+          return _find(acc)(originalSchema)[0];
         })(),
 
         // Wrapping `acc` inside an array because, if the prop is found at top level,
         // a string is pushed inside the queue. Making it already an array will avoid
         // a type check during stringification as the `deepFind` function accepts only
         // arrais as arguments.
-        path: Array.isArray(acc) ? acc : [acc],
+
+        // The find function is the function needed to reach that specific property
+        // inside the object.
+        find: _find(Array.isArray(acc) ? acc : [acc]),
       });
       return;
     }
