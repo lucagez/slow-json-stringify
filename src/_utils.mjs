@@ -1,5 +1,15 @@
 
-
+/**
+ * `_find` is a super fast deep property finder.
+ * It dynamically build the function needed to reach the desired
+ * property.
+ *
+ * e.g.
+ * obj = {a: {b: {c: 1}}}
+ * _find(['a','b','c']) => (obj) => (((obj || {}).a || {}).b || {}).c
+ *
+ * @param {array} path - path to reach object property.
+ */
 const _find = (path) => {
   const { length } = path;
 
@@ -13,6 +23,13 @@ const _find = (path) => {
   return eval(`((obj) => ${str})`);
 };
 
+/**
+ * `_makeArr` is simply a wrapper of another `sjs` schema
+ * used for the serialization of arrais.
+ *
+ * @param {array} array - Array to serialize.
+ * @param {any} method - `sjs` serializer.
+ */
 const _makeArr = (array, method) => {
   if (method === 'array-simple') return JSON.stringify(array);
 
@@ -29,13 +46,15 @@ const _makeArr = (array, method) => {
   return `[${acc}]`;
 };
 
+/**
+ * @param {any} value - current schema value to validate.
+ */
 const _validator = (value) => {
   // Declaring allowed types.
   const allowedTypes = new Set([
     'number',
     'string',
     'boolean',
-    'undefined',
     'array-simple',
     'function',
   ]);
@@ -48,13 +67,12 @@ const _validator = (value) => {
   } else if (typeof value !== 'function' && !allowedTypes.has(value)) {
     // Throwing on illegal types
     // => Mainly protecting users from typo.
-    throw new Error(`Expected one of: "number", "string", "boolean", "undefined". received ${value}`);
+    throw new Error(`Expected one of: "number", "string", "boolean". received ${value}`);
   }
 };
 
 // Little utility for escaping convenience.
 // => if no regex is provided, a default one will be used.
-
 const defaultRegex = new RegExp('\\n|\\r|\\t|\\"|\\\\', 'gm');
 const escape = (regex = defaultRegex) => str => str.replace(regex, char => '\\' + char);
 

@@ -1,5 +1,8 @@
 import { _validator } from './_utils';
 
+/**
+ * @param {object} schema - provided schema to validate.
+ */
 export default schema => JSON.stringify(schema, (_, value) => {
   const isArray = Array.isArray(value);
   if (typeof value !== 'object' || isArray) {
