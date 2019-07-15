@@ -45,7 +45,7 @@ But, the crazy performance improvement and the ease of schema definition might m
 
 **NOTE: Undefined properties support is currently WIP** 
 
-Checkout [benchmarks](#benchmark.md).
+Checkout [benchmarks](benchmark.md).
 
 ## Installation
 
