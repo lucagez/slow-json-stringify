@@ -38,3 +38,6 @@ node big-array-long-text.js
 
 printf "## big-array-long-number \n\n"
 node big-array-long-number.js
+
+printf "## undefined properties \n\n"
+node undef.js
