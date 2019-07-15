@@ -1,6 +1,8 @@
 /**
  * Testing `SJS` performance against native `JSON.stringify` and the fastest
  * stringifier in town `fast-json-stringify`
+ * 
+ * Testing for undefined properties.
 */
 const Benchmark = require('benchmark');
 

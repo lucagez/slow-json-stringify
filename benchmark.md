@@ -10,96 +10,107 @@ Benchmarks performed on:
 ## small-object 
 
 ```bash
-native x 3,386,393 ops/sec ±1.70% (87 runs sampled)
-fast-json-stringify x 17,290,512 ops/sec ±2.62% (89 runs sampled)
-slow-json-stringify x 46,997,949 ops/sec ±0.74% (92 runs sampled)
+native x 2,957,167 ops/sec ±2.51% (79 runs sampled)
+fast-json-stringify x 17,094,006 ops/sec ±1.84% (82 runs sampled)
+slow-json-stringify x 40,921,073 ops/sec ±1.94% (84 runs sampled)
 
-# slow-json-stringify is +171.81% faster
+# slow-json-stringify is +139.39% faster
 
 ```
 
 ## small-array 
 
 ```bash
-native x 335,289 ops/sec ±1.06% (90 runs sampled)
-fast-json-stringify x 376,535 ops/sec ±0.76% (89 runs sampled)
-slow-json-stringify x 1,295,332 ops/sec ±0.95% (91 runs sampled)
+native x 322,311 ops/sec ±1.55% (90 runs sampled)
+fast-json-stringify x 366,088 ops/sec ±1.35% (86 runs sampled)
+slow-json-stringify x 1,250,231 ops/sec ±1.83% (84 runs sampled)
 
-# slow-json-stringify is +244.01% faster
+# slow-json-stringify is +241.51% faster
 
 ```
 
 ## nested-props-short-text 
 
 ```bash
-native x 917,695 ops/sec ±1.16% (95 runs sampled)
-fast-json-stringify x 3,316,950 ops/sec ±0.89% (91 runs sampled)
-slow-json-stringify x 13,207,866 ops/sec ±1.05% (88 runs sampled)
+native x 887,506 ops/sec ±1.76% (90 runs sampled)
+fast-json-stringify x 3,237,814 ops/sec ±1.92% (86 runs sampled)
+slow-json-stringify x 12,250,987 ops/sec ±2.01% (81 runs sampled)
 
-# slow-json-stringify is +298.19% faster
+# slow-json-stringify is +278.37% faster
 
 ```
 
 ## much-props-short-text 
 
 ```bash
-native x 723,099 ops/sec ±1.19% (95 runs sampled)
-fast-json-stringify x 865,882 ops/sec ±0.79% (92 runs sampled)
-slow-json-stringify x 2,856,564 ops/sec ±0.95% (91 runs sampled)
+native x 705,128 ops/sec ±1.84% (90 runs sampled)
+fast-json-stringify x 855,758 ops/sec ±1.44% (91 runs sampled)
+slow-json-stringify x 2,701,362 ops/sec ±2.01% (86 runs sampled)
 
-# slow-json-stringify is +229.90% faster
+# slow-json-stringify is +215.67% faster
 
 ```
 
 ## much-props-big-text 
 
 ```bash
-native x 18,835 ops/sec ±0.85% (93 runs sampled)
-fast-json-stringify x 16,657 ops/sec ±0.97% (95 runs sampled)
-slow-json-stringify x 3,297,202 ops/sec ±0.75% (92 runs sampled)
+native x 17,860 ops/sec ±1.42% (86 runs sampled)
+fast-json-stringify x 15,799 ops/sec ±1.48% (91 runs sampled)
+slow-json-stringify x 3,100,619 ops/sec ±1.59% (93 runs sampled)
 
-# slow-json-stringify is +17406.65% faster
+# slow-json-stringify is +17260.69% faster
 
 ```
 
 ## big-text 
 
 ```bash
-native x 231,221 ops/sec ±0.95% (92 runs sampled)
-fast-json-stringify x 234,677 ops/sec ±0.97% (93 runs sampled)
-slow-json-stringify x 48,744,139 ops/sec ±1.01% (86 runs sampled)
+native x 216,288 ops/sec ±1.34% (90 runs sampled)
+fast-json-stringify x 221,585 ops/sec ±1.60% (83 runs sampled)
+slow-json-stringify x 42,421,565 ops/sec ±1.88% (86 runs sampled)
 
-# slow-json-stringify is +20670.82% faster
+# slow-json-stringify is +19044.60% faster
 
 ```
 
 ## big-array-short-text 
 
 ```bash
-native x 3,581 ops/sec ±0.84% (95 runs sampled)
-slow-json-stringify x 11,344 ops/sec ±1.24% (91 runs sampled)
+native x 3,325 ops/sec ±1.33% (91 runs sampled)
+slow-json-stringify x 11,127 ops/sec ±1.75% (88 runs sampled)
 
-# slow-json-stringify is +216.84% faster
+# slow-json-stringify is +234.62% faster
 
 ```
 
 ## big-array-long-text 
 
 ```bash
-native x 91.42 ops/sec ±1.10% (78 runs sampled)
-slow-json-stringify x 11,657 ops/sec ±0.82% (90 runs sampled)
+native x 89.21 ops/sec ±1.38% (76 runs sampled)
+slow-json-stringify x 11,328 ops/sec ±1.74% (91 runs sampled)
 
-# slow-json-stringify is +12709.89% faster
+# slow-json-stringify is +12628.09% faster
 
 ```
 
 ## big-array-long-number 
 
 ```bash
-native x 961 ops/sec ±1.01% (92 runs sampled)
-slow-json-stringify x 3,089 ops/sec ±1.53% (93 runs sampled)
+native x 896 ops/sec ±1.57% (90 runs sampled)
+slow-json-stringify x 2,881 ops/sec ±1.94% (88 runs sampled)
 
-# slow-json-stringify is +221.33% faster
+# slow-json-stringify is +221.54% faster
+
+```
+
+## undefined properties 
+
+```bash
+native x 2,965,285 ops/sec ±2.03% (91 runs sampled)
+fast-json-stringify x 17,271,819 ops/sec ±1.67% (87 runs sampled)
+slow-json-stringify x 21,920,745 ops/sec ±1.37% (91 runs sampled)
+
+# slow-json-stringify is +26.92% faster
 
 ```
 
