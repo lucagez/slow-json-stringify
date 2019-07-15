@@ -204,15 +204,7 @@ This is one of the strong points of `SJS`.
 When stringifying complex array a new schema is required.
 
 ```javascript
-const { sjs } = require('
-
-
-
-
-
-
-
-fy');
+const { sjs } = require('slow-json-stringify');
 
 // schema definition
 const stringify = sjs({
