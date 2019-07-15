@@ -22,5 +22,6 @@ module.exports = {
         "no-constant-condition": "off",
         "wrap-iife": "off",
         "no-eval": "off",
+        "no-param-reassign": "off",
     }
 };

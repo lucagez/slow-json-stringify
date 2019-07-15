@@ -14,7 +14,7 @@ const test = {
   b: undefined
 };
 
-console.log(escape()('pappa\\perp'));
+// console.log(escape()('pappa\\perp'));
 
 const benchFor = (func, args, n) => {
   const t0 = Date.now();
@@ -38,6 +38,6 @@ console.log(stringify({
   a: 'hello',
   b: 23,
   c: {
-    a: 'lol',
+    a: 'piselo',
   }
 }));
