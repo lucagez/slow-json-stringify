@@ -38,6 +38,8 @@ export default (preparedSchema, originalSchema) => {
         // The find function is the function needed to reach that specific property
         // inside the object.
         find,
+
+        name: usedAcc[usedAcc.length - 1],
       });
       return;
     }

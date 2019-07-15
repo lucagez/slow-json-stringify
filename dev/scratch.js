@@ -35,9 +35,9 @@ const iter = 1000000;
 // console.log('sjs: ', sjsTest);
 
 console.log(stringify({
-  a: 'hello',
-  b: 23,
-  c: {
-    a: 'piselo',
-  }
+  // a: 'hello',
+  // b: 23,
+  // c: {
+  //   // a: 'piselo',
+  // }
 }));

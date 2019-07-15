@@ -3,14 +3,22 @@ import _makeQueue from './_makeQueue';
 import _makeChunks from './_makeChunks';
 import { _makeArr, escape } from './_utils';
 
-const wrapper = chunks => (value, index) => {
-  if (typeof value !== 'undefined') return chunks[index] + value;
+const select = chunks => (value, index) => {
+  const { pure, flag, isUndef, prevUndef, bothUndef } = chunks[index];
 
-  // Checking if template is already wrapping value in double quotes.
-  if (typeof chunks[index + 1] !== 'undefined') {
-    chunks[index + 1] = chunks[index + 1].replace(/^(\"\,|\,|\")/, '');
+  if (typeof value !== 'undefined') {
+    if (flag) {
+      return prevUndef + value;
+    }
+    return pure + value;
   }
-  return chunks[index].replace(/(\,\"|[^{])+$/, '');
+
+  chunks[index + 1].flag = true;
+
+  if (flag) {
+    return bothUndef;
+  }
+  return isUndef;
 };
 
 
@@ -18,22 +26,17 @@ const wrapper = chunks => (value, index) => {
 // the stringification.
 const sjs = (schema) => {
   const preparedString = _prepareString(schema);
-
-  // Building regex that match every prop => Used to enqueue props
-  // => So they will be picked in correct order when building final string.
-  const regex = new RegExp('"(string__sjs|number__sjs|boolean__sjs|undefined__sjs)"|\\[(.*?)\\]', 'gm');
-
-  const chunks = _makeChunks(preparedString, regex);
-  const readyOrWrapped = wrapper(chunks);
-
   const preparedSchema = JSON.parse(preparedString);
 
   // Providing preparedSchema for univocal correspondence between created queue and chunks.
   // Provided original schema to keep track of the original properties that gets destroied
   // during schema preparation => e.g. array stringification method.
   const queue = _makeQueue(preparedSchema, schema);
-
   const { length } = queue;
+
+  const chunks = _makeChunks(preparedString, queue);
+  const selectChunk = select(chunks);
+
   // Exposed function
   return (obj) => {
     let temp = '';
@@ -50,12 +53,14 @@ const sjs = (schema) => {
       const ready = isArray
         ? _makeArr(raw, method)
         : raw;
-      temp += readyOrWrapped(ready, i);
+      temp += selectChunk(ready, i);
 
       i += 1;
     }
 
-    return temp + chunks[chunks.length - 1];
+    const { flag, pure, prevUndef } = chunks[chunks.length - 1];
+
+    return temp + (flag ? prevUndef : pure);
   };
 };
 
