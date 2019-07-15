@@ -18,29 +18,26 @@ export default (preparedSchema, originalSchema) => {
   (function scoped(obj, acc = []) {
     const isArray = Array.isArray(obj);
     if (allowedValues.has(_find(acc)(preparedSchema)) || isArray) {
+      const usedAcc = Array.from(acc);
+      const find = _find(usedAcc);
+
       queue.push({
         // Storing iside a unique queue is the current prop is an array or not
         isArray,
         // If the current prop is an array, the array stringification method is stored too.
         // The method for the array stringification, in SJS, is always stored at 0 position.
-        method: (() => {
-          if (!isArray) return false;
+        method: isArray && (() => {
           if (typeof obj[0] === 'string') return 'array-simple';
 
           // In the prepared schema, due to making the chunks, the functions provided
           // are converted into NULL.
           // So, the method is retrieved from the original schema.
-          return _find(acc)(originalSchema)[0];
+          return find(originalSchema)[0];
         })(),
-
-        // Wrapping `acc` inside an array because, if the prop is found at top level,
-        // a string is pushed inside the queue. Making it already an array will avoid
-        // a type check during stringification as the `deepFind` function accepts only
-        // arrais as arguments.
 
         // The find function is the function needed to reach that specific property
         // inside the object.
-        find: _find(Array.isArray(acc) ? acc : [acc]),
+        find,
       });
       return;
     }
