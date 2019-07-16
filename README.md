@@ -92,7 +92,7 @@ However, `SJS` provides a little utility for your escaping needs.
 You can use `escape` like the following:
 
 ```javascript
-const { escape } = require('slow-json-stringifier');
+const { escape } = require('slow-json-stringify');
 
 // If you don't pass any additional regex, a default one will be used.
 const escaper = escape();
@@ -157,7 +157,7 @@ For a correct stringification of your json payload, a correct schema is mandator
 Defining a schema is pretty handy and not verbose at all.
 
 ```javascript
-const { sjs } = require('slow-json-stringifier');
+const { sjs } = require('slow-json-stringify');
 
 // schema definition
 const stringify = sjs({
@@ -182,7 +182,7 @@ stringify({
 When stringifying simple array `JSON.stringify` will be internally used.
 
 ```javascript
-const { sjs } = require('slow-json-stringifier');
+const { sjs } = require('slow-json-stringify');
 
 // schema definition
 const stringify = sjs({
@@ -204,7 +204,7 @@ This is one of the strong points of `SJS`.
 When stringifying complex array a new schema is required.
 
 ```javascript
-const { sjs } = require('slow-json-stringifier');
+const { sjs } = require('slow-json-stringify');
 
 // schema definition
 const stringify = sjs({
@@ -240,7 +240,7 @@ stringify({
 Defining schemas with nested objects is pretty straightforward.
 
 ```javascript
-const { sjs } = require('slow-json-stringifier');
+const { sjs } = require('slow-json-stringify');
 
 // schema definition
 const stringify = sjs({
