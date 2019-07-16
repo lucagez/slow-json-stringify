@@ -28,9 +28,17 @@ export default (str, queue) => str
     const matchStart = /^(\"\,|\,|\")/;
 
     return {
+      // notify that the chunk preceding the current one has not
+      // its corresponding property undefined.
+      // => This is a V8 optimization as it's way faster writing
+      // the value of a property than writing the entire property.
+      flag: false,
       pure: chunk,
+      // Without initial part
       prevUndef: chunk.replace(matchStart, ''),
+      // Without property chars
       isUndef: chunk.replace(matchProp, ''),
+      // Only remaining chars (can be zero chars)
       bothUndef: chunk
         .replace(matchStart, '')
         .replace(matchProp, ''),
