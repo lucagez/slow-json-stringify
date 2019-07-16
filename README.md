@@ -39,7 +39,7 @@ The slowest stringifier in the known universe. Just kidding, it's the fastest (:
 `SJS` shows a significant increase in performance over both native `JSON.stringify` and `fast-json-stringify`.
 For some use cases (dealing with long text), it performs **19000%** faster than both native and `fast-json-stringify`.
 
-**NOTE:** Support for undefined properties has been added from **1.0.0**. `SJS` is now production ready.
+**NOTE:** Support for undefined properties has been added from **1.0.1**. `SJS` is now production ready.
 
 Checkout [benchmarks](benchmark.md).
 
