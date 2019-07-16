@@ -45,7 +45,6 @@ const sjs = (schema) => {
   // during schema preparation => e.g. array stringification method.
   const queue = _makeQueue(preparedSchema, schema);
   const { length } = queue;
-
   const chunks = _makeChunks(preparedString, queue);
   const selectChunk = select(chunks);
 

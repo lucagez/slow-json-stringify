@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const { sjs, escape } = require('../dist/sjs');
 
-describe('Slow-json-stringifier tests', () => {
+describe('Slow-json-stringify tests', () => {
   it('Should throw if unknown type is provided when defining a schema', () => {
     const schemaDefinition = () => sjs({
       a: 'sting', // Typo
