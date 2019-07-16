@@ -14,7 +14,6 @@ import { _makeArr, escape } from './_utils';
  * @param {number} index - position inside the queue.
  */
 const select = chunks => (value, index) => {
-  // const { pure, flag, isUndef, prevUndef, bothUndef } = chunks[index];
   const chunk = chunks[index];
 
   if (typeof value !== 'undefined') {
