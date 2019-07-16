@@ -14,23 +14,23 @@ import { _makeArr, escape } from './_utils';
  * @param {number} index - position inside the queue.
  */
 const select = chunks => (value, index) => {
-  const { pure, flag, isUndef, prevUndef, bothUndef } = chunks[index];
+  const chunk = chunks[index];
 
   if (typeof value !== 'undefined') {
-    if (flag) {
-      return prevUndef + value;
+    if (chunk.flag) {
+      return chunk.prevUndef + value;
     }
-    return pure + value;
+    return chunk.pure + value;
   }
 
   // If the current value is undefined set a flag on the next
   // chunk stating that the previous prop is undefined.
   chunks[index + 1].flag = true;
 
-  if (flag) {
-    return bothUndef;
+  if (chunk.flag) {
+    return chunk.bothUndef;
   }
-  return isUndef;
+  return chunk.isUndef;
 };
 
 
@@ -45,7 +45,6 @@ const sjs = (schema) => {
   // during schema preparation => e.g. array stringification method.
   const queue = _makeQueue(preparedSchema, schema);
   const { length } = queue;
-
   const chunks = _makeChunks(preparedString, queue);
   const selectChunk = select(chunks);
 
