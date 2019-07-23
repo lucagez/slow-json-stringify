@@ -115,7 +115,7 @@ Lies, damned lies.. and benchmarks.
 Remember to test if `SJS` could be a real improvement for your use case.
 Because there are times when the performance advantages with the added drawbacks could not be worth it.
 
-#### Running benchmarks
+#### Running the benchmarks
 
 Every benchmark is replicable on your own machine.
 To run your tests:
