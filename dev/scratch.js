@@ -1,10 +1,12 @@
-const { sjs, escape } = require('../dist/sjs');
+const { sjs, attr, escape } = require('../dist/sjs');
 
 const stringify = sjs({
-  a: 'string',
-  b: 'number',
+  a: attr('strin'),
+  b: attr('number'),
   c: {
-    a: 'string',
+    a: attr('array', sjs({
+      l: 'string',
+    })),
   }
 });
 
@@ -35,9 +37,13 @@ const iter = 1000000;
 // console.log('sjs: ', sjsTest);
 
 console.log(stringify({
-  // a: 'hello',
-  // b: 23,
-  // c: {
-  //   // a: 'piselo',
-  // }
+  a: 'hello',
+  b: 23,
+  c: {
+    a: [{
+      l: 'lol'
+    }, {
+      l: 'lolllp'
+    }],
+  }
 }));

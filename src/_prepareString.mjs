@@ -11,6 +11,8 @@ export default schema => JSON.stringify(schema, (_, value) => {
 
     if (isArray) return value;
 
+    console.log(value);
+
     // Type checking is useful as if not performed the resulting string
     // will have all the function text inside it.
     // Adding __sjs at the end of the value as there could be an object

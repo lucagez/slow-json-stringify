@@ -1,7 +1,7 @@
 import _prepareString from './_prepareString';
 import _makeQueue from './_makeQueue';
 import _makeChunks from './_makeChunks';
-import { _makeArr, escape } from './_utils';
+import { _makeArr, attr, escape } from './_utils';
 
 /**
  * `select` function takes all the possible chunks from the
@@ -77,5 +77,6 @@ const sjs = (schema) => {
 
 export {
   sjs,
+  attr,
   escape,
 };

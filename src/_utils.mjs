@@ -71,6 +71,26 @@ const _validator = (value) => {
   }
 };
 
+const TYPES = [
+  'number',
+  'string',
+  'boolean',
+  'array',
+  'null',
+];
+
+const attr = (arg, serializer) => {
+  if (!TYPES.includes(arg)) {
+    throw new Error(`Expected one of: "number", "string", "boolean", "null". received "${arg}" instead`);
+  }
+
+  if (arg === 'array' && serializer instanceof Function) {
+    return [serializer];
+  }
+
+  return arg;
+};
+
 // Little utility for escaping convenience.
 // => if no regex is provided, a default one will be used.
 const defaultRegex = new RegExp('\\n|\\r|\\t|\\"|\\\\', 'gm');
@@ -81,4 +101,5 @@ export {
   _makeArr,
   _validator,
   escape,
+  attr,
 };
