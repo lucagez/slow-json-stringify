@@ -1,58 +1,23 @@
+import _prepare from './_prepare';
 import _makeQueue from './_makeQueue';
 import _makeChunks from './_makeChunks';
+import _select from './_select';
 import { attr, escape } from './_utils';
-
-/**
- * `select` function takes all the possible chunks from the
- * current index and set the more appropriate one in relation
- * to the current `value` and the `flag` state.
- *
- * => This approach avoids the use of Regex during serialization.
- *
- * @param {any} value - value to serialize.
- * @param {number} index - position inside the queue.
- */
-const select = chunks => (value, index) => {
-  const chunk = chunks[index];
-
-  if (typeof value !== 'undefined') {
-    if (chunk.flag) {
-      return chunk.prevUndef + value;
-    }
-    return chunk.pure + value;
-  }
-
-  // If the current value is undefined set a flag on the next
-  // chunk stating that the previous prop is undefined.
-  chunks[index + 1].flag = true;
-
-  if (chunk.flag) {
-    return chunk.bothUndef;
-  }
-  return chunk.isUndef;
-};
 
 
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
 const sjs = (schema) => {
-  const preparedString = JSON.stringify(schema, (_, value) => {
-    if (typeof value === 'object') return value;
-    return value instanceof Function
-      ? 'array__sjs'
-      : `${value}__sjs`;
-  });
-  const preparedSchema = JSON.parse(preparedString);
-
-  // INVESTIGATION FROM HEREEE
+  const { preparedString, preparedSchema } = _prepare(schema);
 
   // Providing preparedSchema for univocal correspondence between created queue and chunks.
   // Provided original schema to keep track of the original properties that gets destroied
   // during schema preparation => e.g. array stringification method.
   const queue = _makeQueue(preparedSchema, schema);
-  const { length } = queue;
   const chunks = _makeChunks(preparedString, queue);
-  const selectChunk = select(chunks);
+  const selectChunk = _select(chunks);
+
+  const { length } = queue;
 
   // Exposed function
   return (obj) => {
