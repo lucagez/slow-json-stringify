@@ -1,7 +1,6 @@
-import _prepareString from './_prepareString';
 import _makeQueue from './_makeQueue';
 import _makeChunks from './_makeChunks';
-import { _makeArr, attr, escape } from './_utils';
+import { attr, escape } from './_utils';
 
 /**
  * `select` function takes all the possible chunks from the
@@ -37,8 +36,15 @@ const select = chunks => (value, index) => {
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
 const sjs = (schema) => {
-  const preparedString = _prepareString(schema);
+  const preparedString = JSON.stringify(schema, (_, value) => {
+    if (typeof value === 'object') return value;
+    return value instanceof Function
+      ? 'array__sjs'
+      : `${value}__sjs`;
+  });
   const preparedSchema = JSON.parse(preparedString);
+
+  // INVESTIGATION FROM HEREEE
 
   // Providing preparedSchema for univocal correspondence between created queue and chunks.
   // Provided original schema to keep track of the original properties that gets destroied
@@ -56,13 +62,13 @@ const sjs = (schema) => {
     let i = 0;
     while (true) {
       if (i === length) break;
-      const { method, isArray, find } = queue[i];
+      const { serializer, isArray, find } = queue[i];
       const raw = find(obj);
 
       // An array needs a different treatment
       // => This will make possible the stringification of an arbitrary number of arrais
       const ready = isArray
-        ? _makeArr(raw, method)
+        ? serializer(raw)
         : raw;
       temp += selectChunk(ready, i);
 

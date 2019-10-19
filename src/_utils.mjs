@@ -24,51 +24,29 @@ const _find = (path) => {
 };
 
 /**
- * `_makeArr` is simply a wrapper of another `sjs` schema
+ * `_makeArraySerializer` is simply a wrapper of another `sjs` schema
  * used for the serialization of arrais.
  *
  * @param {array} array - Array to serialize.
  * @param {any} method - `sjs` serializer.
  */
-const _makeArr = (array, method) => {
-  if (method === 'array-simple') return JSON.stringify(array);
+const _makeArraySerializer = (serializer) => {
+  if (serializer instanceof Function) {
+    return (array) => {
+      // Stringifying more complex array using the provided sjs schema
+      let acc = '';
+      const { length } = array;
+      for (let i = 0; i < length - 1; i++) {
+        acc += `${serializer(array[i])},`;
+      }
 
-  // Stringifying more complex array using the provided sjs schema
-  let acc = '';
-  const { length } = array;
-  for (let i = 0; i < length - 1; i++) {
-    acc += `${method(array[i])},`;
+      // Prevent slice for removing unnecessary comma.
+      acc += serializer(array[length - 1]);
+      return `[${acc}]`;
+    };
   }
 
-  // Prevent slice for removing unnecessary comma.
-  acc += method(array[length - 1]);
-
-  return `[${acc}]`;
-};
-
-/**
- * @param {any} value - current schema value to validate.
- */
-const _validator = (value) => {
-  // Declaring allowed types.
-  const allowedTypes = new Set([
-    'number',
-    'string',
-    'boolean',
-    'array-simple',
-    'function',
-  ]);
-
-  if (Array.isArray(value)) {
-    if (allowedTypes.has(value[0]) || allowedTypes.has(typeof value[0])) return;
-
-    // Throwing if inside array is found anything else than "array-simple" or new sjs schema
-    throw new Error(`Expected either "array-simple" or a function. received ${value}`);
-  } else if (typeof value !== 'function' && !allowedTypes.has(value)) {
-    // Throwing on illegal types
-    // => Mainly protecting users from typo.
-    throw new Error(`Expected one of: "number", "string", "boolean". received ${value}`);
-  }
+  return array => JSON.stringify(array);
 };
 
 const TYPES = [
@@ -84,8 +62,8 @@ const attr = (arg, serializer) => {
     throw new Error(`Expected one of: "number", "string", "boolean", "null". received "${arg}" instead`);
   }
 
-  if (arg === 'array' && serializer instanceof Function) {
-    return [serializer];
+  if (arg === 'array') {
+    return _makeArraySerializer(serializer);
   }
 
   return arg;
@@ -98,8 +76,6 @@ const escape = (regex = defaultRegex) => str => str.replace(regex, char => '\\' 
 
 export {
   _find,
-  _makeArr,
-  _validator,
   escape,
   attr,
 };

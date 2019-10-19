@@ -8,7 +8,7 @@ export default (str, queue) => str
   // Matching prepared properties and replacing with target with or without
   // double quotes.
   // => Avoiding unnecessary concatenation of doublequotes during serialization.
-  .replace(/"(string__sjs|number__sjs|boolean__sjs)"|\[(.*?)\]/gm, (type) => {
+  .replace(/"(string__sjs|number__sjs|boolean__sjs|array__sjs)"|\[(.*?)\]/gm, (type) => {
     if (type === '"string__sjs"') {
       return '"__par__"';
     }
