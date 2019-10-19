@@ -1,11 +1,25 @@
 # MESSAGES FOR MY FUTURE SELF
 
-> Last Update: Thu  2 May 14:08:54
+> Last Update: Sat 19 Oct 2019 10:20:27 CEST
 
-Made some testing.
+Added JSON compliant schema capability.
+Improved by a long margin readability and useability of SJS.
 
 # TODO
 
 - [ ] Examples
-- [ ] benchmarks
-- [ ] readme
+  - [ ] NULL
+- [ ] new benchmarks
+- [ ] update README
+  - [ ] Add TYPES section
+  - [ ] Description of JSON schema compliant
+- [ ] CHANGELOG
+- [ ] Publish new npm version (breaking)
+
+# Features
+
+The main point of this library is the extreme speed.
+So, the following features are currently triaged to see if there could be to much negative performance impact.
+
+- [ ] default values
+- [ ] serializer support (HOC function => not to penalize performance)
