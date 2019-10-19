@@ -16,6 +16,7 @@ export default (preparedSchema, originalSchema) => {
     'number__sjs',
     'string__sjs',
     'boolean__sjs',
+    'null__sjs',
     'array__sjs',
   ]);
 

@@ -4,7 +4,6 @@ import _makeChunks from './_makeChunks';
 import _select from './_select';
 import { attr, escape } from './_utils';
 
-
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
 const sjs = (schema) => {
@@ -15,6 +14,7 @@ const sjs = (schema) => {
   // during schema preparation => e.g. array stringification method.
   const queue = _makeQueue(preparedSchema, schema);
   const chunks = _makeChunks(preparedString, queue);
+  console.log(chunks);
   const selectChunk = _select(chunks);
 
   const { length } = queue;

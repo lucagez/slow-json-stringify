@@ -8,12 +8,7 @@ export default (str, queue) => str
   // Matching prepared properties and replacing with target with or without
   // double quotes.
   // => Avoiding unnecessary concatenation of doublequotes during serialization.
-  .replace(/"(string__sjs|number__sjs|boolean__sjs|array__sjs)"|\[(.*?)\]/gm, (type) => {
-    if (type === '"string__sjs"') {
-      return '"__par__"';
-    }
-    return '__par__';
-  })
+  .replace(/"\w+__sjs"/gm, type => (/string/.test(type) ? '"__par__"' : '__par__'))
   .split('__par__')
   .map((chunk, index, chunks) => {
     // Using dynamic regex to ensure that only the correct property

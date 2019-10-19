@@ -2,7 +2,7 @@ const { sjs, attr, escape } = require('../dist/sjs');
 
 const stringify = sjs({
   a: attr('string'),
-  b: attr('number'),
+  b: attr('null'),
   // c: {
   //   a: attr('array', sjs({
   //     l: 'string',
@@ -13,7 +13,7 @@ const stringify = sjs({
 
 console.log(stringify({
   a: 'hello',
-  b: 23,
+  b: null,
   c: {
     a: [{
       l: 'lol'
