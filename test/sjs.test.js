@@ -1,13 +1,13 @@
 const { expect } = require('chai');
-const { sjs, escape } = require('../dist/sjs');
+const { sjs, escape, attr } = require('../dist/sjs');
 
 describe('Slow-json-stringify tests', () => {
   it('Should throw if unknown type is provided when defining a schema', () => {
     const schemaDefinition = () => sjs({
-      a: 'sting', // Typo
+      a: attr('sting'), // Typo
     });
     const schemaDefinition1 = () => sjs({
-      a: ['arry-simple'], // Typo
+      a: attr('arry'), // Typo
     });
 
     expect(schemaDefinition).to.throw();
@@ -16,15 +16,15 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should not throw if known type is provided when defining a schema', () => {
     const schemaDefinition = () => sjs({
-      a: 'string',
-      b: 'number',
-      c: 'boolean',
+      a: attr('string'),
+      b: attr('number'),
+      c: attr('boolean'),
     });
     const schemaDefinition1 = () => sjs({
-      a: ['array-simple'],
-      b: [sjs({
-        a: 'string',
-      })],
+      a: attr('array'),
+      b: attr('array', sjs({
+        a: attr('string'),
+      })),
     });
 
     expect(schemaDefinition).to.not.throw();
@@ -33,7 +33,7 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify a simple object equivalently to native JSON.stringify', () => {
     const stringify = sjs({
-      hello: 'string',
+      hello: attr('string'),
     });
 
     const test = { hello: 'world' };
@@ -45,12 +45,12 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify an object with nested props equivalently to native JSON.stringify', () => {
     const stringify = sjs({
-      hello: 'string',
-      a: 'number',
-      b: 'boolean',
+      hello: attr('string'),
+      a: attr('number'),
+      b: attr('boolean'),
       c: {
         d: {
-          e: 'string',
+          e: attr('string'),
         },
       },
     });
@@ -73,8 +73,8 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify an object with simple arrais equivalently to native JSON.stringify', () => {
     const stringify = sjs({
-      hello: 'string',
-      a: ['array-simple'],
+      hello: attr('string'),
+      a: attr('array'),
     });
 
     const test = {
@@ -89,13 +89,13 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify an object with complex arrais equivalently to native JSON.stringify', () => {
     const stringify = sjs({
-      hello: 'string',
-      a: [sjs({
-        b: 'string',
+      hello: attr('string'),
+      a: attr('array', sjs({
+        b: attr('string'),
         c: {
-          d: 'number',
+          d: attr('number'),
         },
-      })],
+      })),
     });
 
     const test = {
@@ -127,6 +127,7 @@ describe('Slow-json-stringify tests', () => {
         },
       }],
     };
+
     const native = JSON.stringify(test);
     const slow = stringify(test);
 
@@ -135,7 +136,7 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify correct json syntax given a simple object', () => {
     const stringify = sjs({
-      hello: 'string',
+      hello: attr('string'),
     });
 
     const test = { hello: 'world' };
@@ -147,12 +148,12 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify correct json syntax given a complex object', () => {
     const stringify = sjs({
-      hello: 'string',
-      a: 'number',
-      b: 'boolean',
+      hello: attr('string'),
+      a: attr('number'),
+      b: attr('boolean'),
       c: {
         d: {
-          e: 'string',
+          e: attr('string'),
         },
       },
     });
@@ -176,13 +177,13 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify correct json syntax given an object with dynamic arrais', () => {
     const stringify = sjs({
-      hello: 'string',
-      a: [sjs({
-        b: 'string',
+      hello: attr('string'),
+      a: attr('array', sjs({
+        b: attr('string'),
         c: {
-          d: 'number',
+          d: attr('number'),
         },
-      })],
+      })),
     });
 
     const test = {
@@ -223,7 +224,7 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should escape strings and parse correctly', () => {
     const stringify = sjs({
-      hello: 'string',
+      hello: attr('string'),
     });
 
     const unescapedString = '"Hello World"';
@@ -241,7 +242,7 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should escape strings when providing custom regex', () => {
     const stringify = sjs({
-      hello: 'string',
+      hello: attr('string'),
     });
 
     const unescapedString = '"Hello World"';
@@ -259,7 +260,7 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify null', () => {
     const stringify = sjs({
-      hello: 'boolean',
+      hello: attr('boolean'),
     });
 
     const test = {
@@ -273,9 +274,9 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify undefined', () => {
     const stringify = sjs({
-      hello: 'string',
-      hello1: 'number',
-      hello2: 'boolean',
+      hello: attr('string'),
+      hello1: attr('number'),
+      hello2: attr('boolean'),
     });
 
     const test = {
@@ -291,8 +292,8 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify Dates', () => {
     const stringify = sjs({
-      hello: 'string',
-      hello1: 'string',
+      hello: attr('string'),
+      hello1: attr('string'),
     });
 
     const test = {
@@ -307,9 +308,9 @@ describe('Slow-json-stringify tests', () => {
 
   it('Should stringify correctly given same property names', () => {
     const stringify = sjs({
-      a: 'string',
+      a: attr('string'),
       b: {
-        a: 'string',
+        a: attr('string'),
       },
     });
 
