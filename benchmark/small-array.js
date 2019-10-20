@@ -5,7 +5,7 @@
 const Benchmark = require('benchmark');
 
 const fjs = require('fast-json-stringify');
-const { sjs } = require('../dist/sjs');
+const { sjs, attr } = require('../dist/sjs');
 
 const suite = new Benchmark.Suite;
 
@@ -22,13 +22,13 @@ const obj = {
 
 // Slow-json-stringify schema
 const slowStringify = sjs({
-  iris: [sjs({
-    sepalLength: 'number',
-    sepalWidth: 'number',
-    petalLength: 'number',
-    petalWidth: 'number',
-    species: 'string'
-  })],
+  iris: attr('array', sjs({
+    sepalLength: attr('number'),
+    sepalWidth: attr('number'),
+    petalLength: attr('number'),
+    petalWidth: attr('number'),
+    species: attr('string')
+  })),
 });
 
 // Fast-json-stringify schema

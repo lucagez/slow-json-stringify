@@ -258,20 +258,6 @@ describe('Slow-json-stringify tests', () => {
     expect(t).to.not.throw();
   });
 
-  it('Should stringify null', () => {
-    const stringify = sjs({
-      hello: attr('boolean'),
-    });
-
-    const test = {
-      hello: null,
-    };
-
-    const slow = stringify(test);
-    const t = () => JSON.parse(slow);
-    expect(t).to.not.throw();
-  });
-
   it('Should stringify undefined', () => {
     const stringify = sjs({
       hello: attr('string'),
@@ -288,6 +274,28 @@ describe('Slow-json-stringify tests', () => {
     const slow = stringify(test);
     const t = () => JSON.parse(slow);
     expect(t).to.not.throw();
+  });
+
+  it('Should stringify null', () => {
+    const stringify = sjs({
+      hello: attr('null'),
+      hello1: attr('number'),
+      hello2: attr('null'),
+    });
+
+    const test = {
+      hello: null,
+      hello1: undefined,
+      hello2: null,
+    };
+
+    const slow = stringify(test);
+    const native = JSON.stringify(test);
+
+    const t = () => JSON.parse(slow);
+
+    expect(t).to.not.throw();
+    expect(slow).to.equal(native);
   });
 
   it('Should stringify Dates', () => {
