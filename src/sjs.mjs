@@ -26,14 +26,12 @@ const sjs = (schema) => {
     let i = 0;
     while (true) {
       if (i === length) break;
-      const { serializer, isArray, find } = queue[i];
+      const { serializer, find } = queue[i];
       const raw = find(obj);
 
       // An array needs a different treatment
       // => This will make possible the stringification of an arbitrary number of arrais
-      const ready = isArray
-        ? serializer(raw)
-        : raw;
+      const ready = serializer(raw);
       temp += selectChunk(ready, i);
 
       i += 1;

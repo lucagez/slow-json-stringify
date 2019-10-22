@@ -57,16 +57,20 @@ const TYPES = [
   'null',
 ];
 
-const attr = (arg, serializer) => {
-  if (!TYPES.includes(arg)) {
-    throw new Error(`Expected one of: "number", "string", "boolean", "null". received "${arg}" instead`);
+const attr = (type, serializer) => {
+  if (!TYPES.includes(type)) {
+    throw new Error(`Expected one of: "number", "string", "boolean", "null". received "${type}" instead`);
   }
 
-  if (arg === 'array') {
-    return _makeArraySerializer(serializer);
-  }
+  const usedSerializer = serializer || (value => value);
 
-  return arg;
+  return {
+    isSJS: true,
+    type,
+    serializer: type === 'array'
+      ? _makeArraySerializer(serializer)
+      : usedSerializer,
+  };
 };
 
 // Little utility for escaping convenience.

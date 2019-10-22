@@ -1,7 +1,7 @@
 const { sjs, attr, escape } = require('../dist/sjs');
 
 const stringify = sjs({
-  a: attr('string'),
+  a: attr('string', value => `${value} lol`),
   b: attr('null'),
   // c: {
   //   a: attr('array', sjs({

@@ -7,10 +7,8 @@
  */
 const _prepare = (schema) => {
   const preparedString = JSON.stringify(schema, (_, value) => {
-    if (typeof value === 'object') return value;
-    return value instanceof Function
-      ? 'array__sjs'
-      : `${value}__sjs`;
+    if (!value.isSJS) return value;
+    return `${value.type}__sjs`;
   });
 
   const preparedSchema = JSON.parse(preparedString);

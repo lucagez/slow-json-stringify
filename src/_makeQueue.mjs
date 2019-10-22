@@ -15,21 +15,11 @@ export default (preparedSchema, originalSchema) => {
     if (/__sjs/.test(obj)) {
       const usedAcc = Array.from(acc);
       const find = _find(usedAcc);
-      const serializer = find(originalSchema);
+      const { serializer } = find(originalSchema);
 
       queue.push({
-        // Storing iside a unique queue is the current prop is an array or not
-        isArray: serializer instanceof Function,
-
-        // If the current prop is an array, the array stringification serializer is stored too.
-        // The serializer for the array stringification, in SJS, is always stored at 0 position.
         serializer,
-
-        // The find function is the function needed to reach that specific property
-        // inside the object.
         find,
-
-        name: usedAcc[usedAcc.length - 1],
       });
       return;
     }

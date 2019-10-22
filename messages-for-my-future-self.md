@@ -22,7 +22,7 @@ The main point of this library is the extreme speed.
 So, the following features are currently triaged to see if there could be to much negative performance impact.
 
 - [ ] default values
-- [ ] serializer support (HOC function => not to penalize performance)
+- [x] serializer support (HOC function => not to penalize performance)
 - [ ] auto schema generation -> caching?
 
 keys equality????
