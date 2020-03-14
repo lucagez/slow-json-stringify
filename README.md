@@ -227,20 +227,20 @@ const stringify = sjs({
 stringify({
   a: [{
     b: 'ciao1',
-    d: 1,
+    c: 1,
   }, {
     b: 'ciao2',
-    d: 2,
+    c: 2,
   }, {
     b: 'ciao3',
-    d: 3,
+    c: 3,
   }, {
     b: 'ciao4',
-    d: 4, 
+    c: 4, 
   }],
 });
 
-// {"a":[{"b":"ciao1","d":1},{"b":"ciao2","d":2},{"b":"ciao3","d":3},{"b":"ciao4","d":4}]}
+// {"a":[{"b":"ciao1","c":1},{"b":"ciao2","c":2},{"b":"ciao3","c":3},{"b":"ciao4","c":4}]}
 
 ```
 
