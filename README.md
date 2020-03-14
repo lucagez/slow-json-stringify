@@ -278,7 +278,7 @@ stringify({
 
 ```
 
-## Using a serializer
+## Serializers
 
 The `attr` helper accepts a serializer function.
 Property serializers are useful to perform custom serialization on any provide type not natively supported even by `JSON.stringify` (Dates, regular expressions).
