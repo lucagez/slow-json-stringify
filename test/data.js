@@ -1,8 +1,10 @@
+const { attr } = require('../dist/sjs');
+
 const data = {
   0: {
     schema: {
-      a: 'string',
-      b: 'string',
+      a: attr('string'),
+      b: attr('string'),
     },
     obj: {
       a: 'hello',
@@ -13,10 +15,10 @@ const data = {
   1: {
     schema: {
       a: {
-        b: 'string',
-        c: 'string',
+        b: attr('string'),
+        c: attr('string'),
       },
-      d: 'string',
+      d: attr('string'),
     },
     obj: {
       a: {
@@ -29,10 +31,10 @@ const data = {
 
   2: {
     schema: {
-      a: 'boolean',
+      a: attr('boolean'),
       b: {
-        c: 'string',
-        d: 'number',
+        c: attr('string'),
+        d: attr('number'),
       },
     },
     obj: {
@@ -46,36 +48,36 @@ const data = {
 
   3: {
     schema: {
-      a: 'string',
-      b: 'number',
-      c: 'boolean',
+      a: attr('string'),
+      b: attr('number'),
+      c: attr('boolean'),
       d: {
         e: {
-          f: 'number',
+          f: attr('number'),
           g: {
-            h: 'boolean',
-            i: 'number',
+            h: attr('boolean'),
+            i: attr('number'),
           },
           l: {
             m: {
               n: {
                 o: {
                   p: {
-                    q: 'number',
+                    q: attr('number'),
                   },
                 },
               },
             },
-            r: 'string',
+            r: attr('string'),
           },
         },
-        s: 'boolean',
+        s: attr('boolean'),
         t: {
-          u: 'number',
+          u: attr('number'),
           w: {
             x: {
               y: {
-                z: 'string',
+                z: attr('string'),
               },
             },
           },
@@ -123,8 +125,8 @@ const data = {
 
   4: {
     schema: {
-      a: 'string',
-      b: 'string',
+      a: attr('string'),
+      b: attr('string'),
     },
     obj: {
       a: 'hello',
@@ -135,10 +137,10 @@ const data = {
   5: {
     schema: {
       a: {
-        b: 'string',
-        c: 'string',
+        b: attr('string'),
+        c: attr('string'),
       },
-      d: 'string',
+      d: attr('string'),
     },
     obj: {
       a: {
@@ -151,10 +153,10 @@ const data = {
 
   6: {
     schema: {
-      a: 'boolean',
+      a: attr('boolean'),
       b: {
-        c: 'string',
-        d: 'number',
+        c: attr('string'),
+        d: attr('number'),
       },
     },
     obj: {
@@ -168,36 +170,36 @@ const data = {
 
   7: {
     schema: {
-      a: 'string',
-      b: 'number',
-      c: 'boolean',
+      a: attr('string'),
+      b: attr('number'),
+      c: attr('boolean'),
       d: {
         e: {
-          f: 'number',
+          f: attr('number'),
           g: {
-            h: 'boolean',
-            i: 'number',
+            h: attr('boolean'),
+            i: attr('number'),
           },
           l: {
             m: {
               n: {
                 o: {
                   p: {
-                    q: 'number',
+                    q: attr('number'),
                   },
                 },
               },
             },
-            r: 'string',
+            r: attr('string'),
           },
         },
-        s: 'boolean',
+        s: attr('boolean'),
         t: {
-          u: 'number',
+          u: attr('number'),
           w: {
             x: {
               y: {
-                z: 'string',
+                z: attr('string'),
               },
             },
           },

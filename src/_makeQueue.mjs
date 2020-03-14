@@ -20,6 +20,7 @@ export default (preparedSchema, originalSchema) => {
       queue.push({
         serializer,
         find,
+        name: acc[acc.length - 1],
       });
       return;
     }

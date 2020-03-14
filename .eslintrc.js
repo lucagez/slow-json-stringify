@@ -23,5 +23,6 @@ module.exports = {
         "wrap-iife": "off",
         "no-eval": "off",
         "no-param-reassign": "off",
+        "no-confusing-arrow": "off",
     }
 };

@@ -29,10 +29,7 @@ const sjs = (schema) => {
       const { serializer, find } = queue[i];
       const raw = find(obj);
 
-      // An array needs a different treatment
-      // => This will make possible the stringification of an arbitrary number of arrais
-      const ready = serializer(raw);
-      temp += selectChunk(ready, i);
+      temp += selectChunk(serializer(raw), i);
 
       i += 1;
     }
