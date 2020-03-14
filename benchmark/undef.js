@@ -11,13 +11,16 @@ const { sjs, attr } = require('../dist/sjs');
 
 const suite = new Benchmark.Suite;
 
-const obj = { hello: 'world', jimmy: undefined };
+const obj = { hello: 'world', gino: 'The answer is 42', jimmy: undefined };
 
 // Fast-json-stringify schema
 const fastStringify = fjs({
   type: 'object',
   properties: {
     hello: {
+      type: 'string',
+    },
+    gino: {
       type: 'string',
     },
     jimmy: {
@@ -55,10 +58,3 @@ suite
     console.log('\n```\n');
   })
   .run();
-
-// For small objects `fast-json-stringify` outperforms native.
-// The increased performance using `SJS` is quite small.
-
-// native x 2,854,971 ops/sec ±2.39% (83 runs sampled)
-// fast-json-stringify x 18,085,743 ops/sec ±1.04% (88 runs sampled)
-// slow-json-stringify x 21,193,276 ops/sec ±1.37% (89 runs sampled)
