@@ -280,7 +280,12 @@ stringify({
 
 ## Serializers
 
-The `attr` helper accepts a serializer function.
+The `attr` helper accepts a serializer function. The serializer function gets invoked with the real value that should be stringified. 
+
+```bash
+serializer(rawValue)
+```
+
 Property serializers are useful to perform custom serialization on any provide type not natively supported even by `JSON.stringify` (Dates, regular expressions).
 They can be used also to skip property serializarion when returning `undefined`.
 
