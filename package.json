@@ -6,6 +6,7 @@
   "main": "dist/sjs.js",
   "module": "dist/sjs.mjs",
   "unpkg": "dist/sjs.umd.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "microbundle",
     "build:dev": "microbundle watch",
