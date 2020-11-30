@@ -27,7 +27,7 @@ export type SjsSchema = { [prop: string]: AttrExecutable | SjsSchema };
  * 
  * Serialize any object enforcing the provided schema.
  */
-export type SjsSerializer = (obj: object) => string;
+export type SjsSerializer = (obj: unknown) => string;
 
 /**
  * SjsEscaper
@@ -68,10 +68,11 @@ export function attr(type: AttrType, serializer?: Serializer): AttrExecutable;
  * @default regex - \\n|\\r|\\t|\\"|\\\\
  */
 export function escape(regex?: RegExp): (str: string) => string;
+
 /**
  * sjs
  * 
  * compile the provided schema and exports a function
  * that serialize objects enforcing the schema.
  */
-export function sjs(schema: SjsSchema): SjsEscaper;
+export function sjs(schema: SjsSchema): SjsSerializer;
