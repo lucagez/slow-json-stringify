@@ -40,8 +40,29 @@ const sjs = (schema) => {
   };
 };
 
+const sjp = (schema) => {
+  const { preparedString, preparedSchema } = _prepare(schema);
+
+  // Providing preparedSchema for univocal correspondence between created queue and chunks.
+  // Provided original schema to keep track of the original properties that gets destroied
+  // during schema preparation => e.g. array stringification method.
+  const queue = _makeQueue(preparedSchema, schema);
+  const chunks = _makeChunks(preparedString, queue);
+  const selectChunk = _select(chunks);
+
+  console.log(queue, '\n', chunks);
+
+  const { length } = queue;
+
+  // Exposed function
+  return (raw) => {
+    
+  };
+};
+
 export {
   sjs,
+  sjp,
   attr,
   escape,
 };
