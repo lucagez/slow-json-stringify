@@ -5,10 +5,12 @@
   "source": "src/sjs.mjs",
   "main": "dist/sjs.js",
   "module": "dist/sjs.mjs",
+  "exports": "./dist/sjs.modern.js",
+  "umd:main": "dist/sjs.umd.js",
   "unpkg": "dist/sjs.umd.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "microbundle",
+    "build": "microbundle --compress --strict",
     "build:dev": "microbundle watch",
     "lint": "eslint src/*.mjs test/*.js",
     "lint:fix": "eslint src/*.mjs test/*.js --fix",
@@ -22,14 +24,14 @@
   },
   "devDependencies": {
     "benchmark": "^2.1.4",
-    "chai": "^4.2.0",
+    "chai": "^4.3.4",
     "chai-spies": "^1.0.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.0",
-    "fast-json-stringify": "^1.17.0",
-    "microbundle": "^0.11.0",
-    "mocha": "^6.1.4"
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.2",
+    "fast-json-stringify": "^2.7.9",
+    "microbundle": "^0.13.3",
+    "mocha": "^9.1.1"
   },
   "keywords": [
     "stringify",
@@ -39,12 +41,14 @@
     "serialize",
     "hash",
     "stringification",
-    "fast"
+    "fast",
+    "performance"
   ],
   "author": "Luca Gesmundo <lucagesmundo@yahoo.it>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lucagez/slow-json-stringify/issues"
   },
-  "homepage": "https://github.com/lucagez/slow-json-stringify#readme"
+  "homepage": "https://github.com/lucagez/slow-json-stringify#readme",
+  "sideeffects": false
 }

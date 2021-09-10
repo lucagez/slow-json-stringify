@@ -1,0 +1,15 @@
+{
+  "minify": {
+    "mangle": {
+      "properties": {
+        "regex": "/^_/"
+      },
+      "toplevel": true
+    },
+    "compress": {
+      "reduce_funcs": false,
+      "passes": 2
+    },
+    "toplevel": true
+  }
+}
