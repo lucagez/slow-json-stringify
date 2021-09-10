@@ -1,3 +1,7 @@
+const _stringifyCallback = (_, value) => {
+  if (!value.isSJS) return value;
+  return `${value.type}__sjs`;
+};
 
 /**
  * `_prepare` - aims to normalize the schema provided by the user.
@@ -6,17 +10,13 @@
  * @param {object} schema - user provided schema
  */
 const _prepare = (schema) => {
-  const preparedString = JSON.stringify(schema, (_, value) => {
-    if (!value.isSJS) return value;
-    return `${value.type}__sjs`;
-  });
-
-  const preparedSchema = JSON.parse(preparedString);
+  const _preparedString = JSON.stringify(schema, _stringifyCallback);
+  const _preparedSchema = JSON.parse(_preparedString);
 
   return {
-    preparedString,
-    preparedSchema,
+    _preparedString,
+    _preparedSchema,
   };
 };
 
-export default _prepare;
+export { _prepare };

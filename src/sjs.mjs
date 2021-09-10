@@ -1,26 +1,26 @@
-import _prepare from './_prepare';
-import _makeQueue from './_makeQueue';
-import _makeChunks from './_makeChunks';
-import _select from './_select';
-import { attr, escape } from './_utils';
+import { _prepare } from "./_prepare.mjs";
+import { _makeQueue } from "./_makeQueue.mjs";
+import { _makeChunks } from "./_makeChunks.mjs";
+import { _select } from "./_select.mjs";
+import { attr, escape } from "./_utils.mjs";
 
 // Doing a lot of preparation work before returning the final function responsible for
 // the stringification.
 const sjs = (schema) => {
-  const { preparedString, preparedSchema } = _prepare(schema);
+  const { _preparedString, _preparedSchema } = _prepare(schema);
 
   // Providing preparedSchema for univocal correspondence between created queue and chunks.
   // Provided original schema to keep track of the original properties that gets destroied
   // during schema preparation => e.g. array stringification method.
-  const queue = _makeQueue(preparedSchema, schema);
-  const chunks = _makeChunks(preparedString, queue);
+  const queue = _makeQueue(_preparedSchema, schema);
+  const chunks = _makeChunks(_preparedString, queue);
   const selectChunk = _select(chunks);
 
-  const { length } = queue;
+  const length = queue.length;
 
   // Exposed function
   return (obj) => {
-    let temp = '';
+    let temp = "";
 
     // Ditching old implementation for a **MUCH** faster while
     let i = 0;
@@ -31,7 +31,7 @@ const sjs = (schema) => {
 
       temp += selectChunk(serializer(raw), i);
 
-      i += 1;
+      ++i;
     }
 
     const { flag, pure, prevUndef } = chunks[chunks.length - 1];
@@ -40,8 +40,4 @@ const sjs = (schema) => {
   };
 };
 
-export {
-  sjs,
-  attr,
-  escape,
-};
+export { sjs, attr, escape };
