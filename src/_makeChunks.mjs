@@ -32,7 +32,7 @@ const _makeChunks = (str, queue) => {
     // Using dynamic regex to ensure that only the correct property
     // at the end of the string it's actually selected.
     // => e.g. ,"a":{"a": => ,"a":{
-    const matchProp = `("${(queue[i] || {}).name}":(\"?))$`;
+    const matchProp = `("${queue[i]?.name}":(\"?))$`;
 
     // Check if current chunk is the last one inside a nested property
     const isLast = _isLastRegex.test(chunks[i + 1] || "");
