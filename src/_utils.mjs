@@ -29,42 +29,39 @@ const __find = (path) => {
   return eval(`(obj=>${str})`);
 };
 
+function _arraySerializer (serializer, array) {
+  // Stringifying more complex array using the provided sjs schema
+  let acc = '';
+  const len = array.length - 1;
+  for (let i = 0; i < len; ++i) {
+    acc += `${serializer(array[i])},`;
+  }
+
+  // Prevent slice for removing unnecessary comma.
+  acc += serializer(array[len]);
+  return `[${acc}]`;
+}
+
 /**
  * `_makeArraySerializer` is simply a wrapper of another `sjs` schema
  * used for the serialization of arrais.
- *
- * @param {array} array - Array to serialize.
- * @param {any} method - `sjs` serializer.
  */
 const _makeArraySerializer = (serializer) => {
-  if (serializer instanceof Function) {
-    return (array) => {
-      // Stringifying more complex array using the provided sjs schema
-      let acc = '';
-      const len = array.length - 1;
-      for (let i = 0; i < len; ++i) {
-        acc += `${serializer(array[i])},`;
-      }
-
-      // Prevent slice for removing unnecessary comma.
-      acc += serializer(array[len]);
-      return `[${acc}]`;
-    };
-  }
-
-  return array => JSON.stringify(array);
+  if (typeof serializer === 'function') return _arraySerializer.bind(null, serializer);
+  return JSON.stringify;
 };
 
 const TYPES = ['number', 'string', 'boolean', 'array', 'null'];
 
-/*#__PURE__*/
-function checkType(type) {
+/*#__PURE__*/function checkType(type) {
   if (typeof process !== 'undefined' && process.env.NODE_ENV !== 'production' && !TYPES.includes(type)) {
     throw new Error(
       `Expected one of: "number", "string", "boolean", "array", "null". received "${type}" instead`,
     );
   }
 }
+
+const fnUser = (value) => value;
 
 /**
  * @param type number|string|boolean|array|null
@@ -74,7 +71,7 @@ function checkType(type) {
 const attr = (type, serializer) => {
   /*#__PURE__*/checkType(type);
 
-  const usedSerializer = serializer || (value => value);
+  const usedSerializer = serializer || fnUser;
 
   return {
     isSJS: true,
