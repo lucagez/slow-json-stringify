@@ -23,7 +23,9 @@ const _makeChunks = (str, queue) => {
       .split("__par__"),
     result = [];
 
-  for (let i = 0; i < chunks.length; ++i) {
+  let _i;
+  const length = chunks.length;
+  for (let i = 0; i < length; ++i) {
     const chunk = chunks[i];
 
     // Using dynamic regex to ensure that only the correct property
@@ -32,8 +34,10 @@ const _makeChunks = (str, queue) => {
     const matchProp = `("${queue[i]?.name}":(\"?))$`;
 
     // Check if current chunk is the last one inside a nested property
-    const nextChunk = (chunks[i + 1] || "").indexOf('}');
-    const isLast = nextChunk === 0 || nextChunk === 1;
+    const isLast = (_i = i + 1) === length || (
+      (_i = chunks[_i].indexOf('}')) 
+        && (_i === 0 || _i === 1)
+    );
 
     // If the chunk is the last one the `isUndef` case should match
     // the preceding comma too.
