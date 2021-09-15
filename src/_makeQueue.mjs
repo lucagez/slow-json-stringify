@@ -1,11 +1,8 @@
 import { __find, _find } from "./_utils.mjs";
 
-const _sjsRegex = /__sjs/;
-
 function _prepareQueue(originalSchema, queue, obj, acc = []) {
-  if (_sjsRegex.test(obj)) {
-    const usedAcc = [...acc];
-    const find = __find(usedAcc);
+  if (obj.toString().indexOf("__sjs") !== -1) {
+    const find = __find(acc);
     const { serializer } = find(originalSchema);
 
     queue.push({
