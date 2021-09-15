@@ -16,22 +16,15 @@ const sjs = (schema) => {
   const chunks = _makeChunks(_preparedString, queue);
   const selectChunk = _select(chunks);
 
-  const length = queue.length;
-
   // Exposed function
   return (obj) => {
     let temp = "";
 
-    // Ditching old implementation for a **MUCH** faster while
-    let i = 0;
-    while (true) {
-      if (i === length) break;
-      const { serializer, find } = queue[i];
-      const raw = find(obj);
+    for (let i = 0; i < queue.length; ++i) {
+      const { serializer, find } = queue[i]
+      const raw = find(obj)
 
-      temp += selectChunk(serializer(raw), i);
-
-      ++i;
+      temp += selectChunk(serializer(raw), i)
     }
 
     const { flag, pure, prevUndef } = chunks[chunks.length - 1];
