@@ -3,12 +3,11 @@
     "mangle": {
       "properties": {
         "regex": "/^_/"
-      },
-      "toplevel": true
+      }
     },
     "compress": {
       "reduce_funcs": false,
-      "passes": 2
+      "passes": 10
     },
     "toplevel": true
   }
