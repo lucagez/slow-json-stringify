@@ -1,15 +1,14 @@
-const _stringRegex = /string/;
+const _replaceString = type => type.indexOf('string') !== -1 ? '"__par__"' : "__par__";
 
-const _replaceString = (type) =>
-  _stringRegex.test(type) ? '"__par__"' : "__par__";
-
-const _isLastRegex = /^("}|})/;
+const _isLastRegex = /^(?:"}|})/; // eslint-disable-line clean-regex/identity-escape
 
 // 3 possibilities after arbitrary property:
 // - ", => non-last string property
 // - , => non-last non-string property
 // - " => last string property
 const _matchStartRe = /^(\"\,|\,|\")/;
+
+const _chunkRegex = /"\w+__sjs"/g;
 
 /**
  * @param {string} str - prepared string already validated.
@@ -22,7 +21,7 @@ const _makeChunks = (str, queue) => {
       // Matching prepared properties and replacing with target with or without
       // double quotes.
       // => Avoiding unnecessary concatenation of doublequotes during serialization.
-      .replace(/"\w+__sjs"/gm, _replaceString)
+      .replace(_chunkRegex, _replaceString)
       .split("__par__"),
     result = [];
 
