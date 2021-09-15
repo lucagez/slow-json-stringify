@@ -1,7 +1,5 @@
 const _replaceString = type => type.indexOf('string') !== -1 ? '"__par__"' : "__par__";
 
-const _isLastRegex = /^(?:"}|})/; // eslint-disable-line clean-regex/identity-escape
-
 // 3 possibilities after arbitrary property:
 // - ", => non-last string property
 // - , => non-last non-string property
@@ -34,12 +32,15 @@ const _makeChunks = (str, queue) => {
     const matchProp = `("${queue[i]?.name}":(\"?))$`;
 
     // Check if current chunk is the last one inside a nested property
-    const isLast = _isLastRegex.test(chunks[i + 1] || "");
+    const nextChunk = chunks[i + 1] || "";
+    const isLast = nextChunk.indexOf('"}') === 0 || nextChunk.indexOf('}') === 0;
 
     // If the chunk is the last one the `isUndef` case should match
     // the preceding comma too.
     const matchPropRe = new RegExp(isLast ? `(\,?)${matchProp}` : matchProp);
 
+    const withoutInitial = chunk.replace(_matchStartRe, "");
+    
     result.push({
       // notify that the chunk preceding the current one has not
       // its corresponding property undefined.
@@ -48,11 +49,11 @@ const _makeChunks = (str, queue) => {
       flag: false,
       pure: chunk,
       // Without initial part
-      prevUndef: chunk.replace(_matchStartRe, ""),
+      prevUndef: withoutInitial,
       // Without property chars
       isUndef: chunk.replace(matchPropRe, ""),
       // Only remaining chars (can be zero chars)
-      bothUndef: chunk.replace(_matchStartRe, "").replace(matchPropRe, ""),
+      bothUndef: withoutInitial.replace(matchPropRe, ""),
     });
   }
 
