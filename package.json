@@ -10,7 +10,7 @@
   "unpkg": "dist/sjs.umd.js",
   "types": "index.d.ts",
   "scripts": {
-    "build": "microbundle --compress --strict",
+    "build": "microbundle",
     "build:dev": "microbundle watch",
     "lint": "eslint src/*.mjs test/*.js",
     "lint:fix": "eslint src/*.mjs test/*.js --fix",
