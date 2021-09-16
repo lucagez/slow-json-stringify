@@ -1,9 +1,14 @@
 import { __find, _find } from "./_utils.mjs";
 
-const _sjsRegex = /__sjs/
-
+/**
+ * @param {object} originalSchema
+ * @param {array} queue
+ * @param {string|object} obj
+ * @param {array} acc
+ */
 function _prepareQueue(originalSchema, queue, obj, acc = []) {
-  if (_sjsRegex.test(obj)) {
+  // this looks weird for objects, but is actually exactly what we want: object.toString() === '[object Object]'. We only want actual strings.
+  if (obj.toString().indexOf('__sjs') !== -1) { 
     const find = __find(acc);
     const { serializer } = find(originalSchema);
 
