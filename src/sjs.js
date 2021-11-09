@@ -14,18 +14,6 @@ const sjs = (schema) => {
   // during schema preparation => e.g. array stringification method.
   const queue = _makeQueue(preparedSchema, schema);
   const chunks = _makeChunks(preparedString, queue);
-  const { pure: lastChunk } = chunks[chunks.length - 1];
-
-  const withSerializerQ = queue.map(({
-    serializer,
-    find,
-  }, index) => {
-    return (obj) => {
-      const value = serializer(find(obj));
-
-    }
-  })
-
   const { length } = queue;
 
   // Exposed function

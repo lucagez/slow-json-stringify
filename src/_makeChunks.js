@@ -4,14 +4,11 @@
  * (used for building dynamic regex) needed for the preparation of
  * chunks used in different scenarios.
  */
-module.exports = (str, queue) => {
-  const types = [];
-  return str
+module.exports = (str, queue) => str
     // Matching prepared properties and replacing with target with or without
     // double quotes.
     // => Avoiding unnecessary concatenation of doublequotes during serialization.
     .replace(/"(\w+)__sjs"/gm, (type, matchedGroup) => {
-      types.push(matchedGroup);
       return (/string/.test(type) ? `"__par__"` : `__par__`)
     })
     .split(/__par__/)
@@ -36,8 +33,6 @@ module.exports = (str, queue) => {
       const matchStartRe = /^(\"\,|\,|\")/;
 
       return {
-        type: types[index],
-
         pure: chunk,
         // Without initial part
         prevUndef: chunk.replace(matchStartRe, ''),
@@ -51,4 +46,4 @@ module.exports = (str, queue) => {
         nextUndef: chunk.replace(new RegExp(matchWhenLast), ''),
       };
     });
-}
+
