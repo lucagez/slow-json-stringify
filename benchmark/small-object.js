@@ -37,8 +37,8 @@ console.log('```bash');
 
 suite
   .add('native', () => JSON.stringify(obj))
-  .add('slow-json-stringify', () => slowStringify(obj))
   .add('fast-json-stringify', () => fastStringify(obj))
+  .add('slow-json-stringify', () => slowStringify(obj))
   .on('cycle', (event) => {
     res.push(Math.floor(event.target.hz));
     console.log(String(event.target))

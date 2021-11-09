@@ -1,2 +1,0 @@
-var e=require("./_prepare"),r=require("./_makeQueue"),a=require("./_makeChunks"),u=require("./_select"),t=require("./_utils");module.exports={sjs:function(t){var n=e(t),i=n.preparedString,p=r(n.preparedSchema,t),s=a(i,p),c=u(s),f=p.length;return function(e){for(var r="",a=p.map(function(r){return(0,r.serializer)((0,r.find)(e))}),u=0;u!==f;)r+=c(a,u),u+=1;var t=s[s.length-1];return r+(t.flag?t.prevUndef:t.pure)}},attr:t.attr,escape:t.escape};
-//# sourceMappingURL=bundle.js.map
