@@ -336,7 +336,7 @@ describe('Slow-json-stringify tests', () => {
     expect(t.b.a).to.be.equal('a1');
   });
 
-  it('Should sove issue #33, missing commas', () => {
+  it('Should serialize correctly objects with different undefined values with same serializer', () => {
     const stringify = sjs({
       a: attr('string'),
       b: attr('number'),
@@ -364,7 +364,8 @@ describe('Slow-json-stringify tests', () => {
     expect(bc).to.be.equal('{"b":42,"c":true}');
 
     // full input -> missing two commas and one quotation mark
-    // stringify({ a: 'world', b: 42, c: true }); // {"a":"world"b":42"c":true}
+    const afterFull = stringify({ a: 'world', b: 42, c: true }); // {"a":"world"b":42"c":true}
+    expect(afterFull).to.be.equal('{"a":"world","b":42,"c":true}');
     // lets remove "b" -> no issues
 
     const outerAgain = stringify({ a: 'world', c: true }); // {"a":"world","c":true}

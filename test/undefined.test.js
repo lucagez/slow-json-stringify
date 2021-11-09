@@ -21,26 +21,4 @@ describe('Undefined support tests', () => {
       expect(slow).to.be.equal(native);
     });
   });
-
-  it("works", () => {
-    const stringify = sjs({
-      a: {
-        b: attr('string'),
-        c: attr('string'),
-      },
-      d: attr('string'),
-    });
-
-    const slow = stringify({
-      a: {
-        b: undefined,
-        c: 'world',
-      },
-      d: undefined,
-    })
-
-    expect(slow).to.be.equal('{"a":{"c":"world"}}')
-
-
-  })
 });
