@@ -1,6 +1,6 @@
 const chai = require('chai');
 const spies = require('chai-spies');
-const { sjs, attr } = require('../dist/sjs');
+const { sjs, attr } = require('../src/sjs');
 
 chai.use(spies);
 

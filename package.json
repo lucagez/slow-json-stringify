@@ -13,7 +13,7 @@
     "build:dev": "microbundle watch",
     "lint": "eslint src/*.mjs test/*.js",
     "lint:fix": "eslint src/*.mjs test/*.js --fix",
-    "test": "npm run build && mocha --timeout 10000 --recursive test",
+    "test": "mocha --timeout 10000 --recursive test",
     "ship": "rm -r dist && npm run build && npm publish",
     "benchmark": "rm -rf dist && npm run build:esbuild && cd benchmark && sh run.sh",
     "benchmark:no-build": "cd benchmark && sh run.sh"

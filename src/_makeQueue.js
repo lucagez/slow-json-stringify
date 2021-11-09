@@ -20,6 +20,7 @@ module.exports = (preparedSchema, originalSchema) => {
       queue.push({
         serializer,
         find,
+        aggregate: (arg) => serializer(find(arg)),
         name: acc[acc.length - 1],
       });
       return;

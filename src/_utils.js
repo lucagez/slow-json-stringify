@@ -10,38 +10,12 @@
  *
  * @param {array} path - path to reach object property.
  */
-// const _find = (path) => {
-//   const { length } = path;
-//   // let memo = null;
-//
-//   let str = 'obj';
-//
-//   for (let i = 0; i < length; i++) {
-//     str = str.replace(/^/, '(');
-//     // if (i === 0) {
-//     //   str += `).${path[i]}`;
-//     // } else {
-//     //   str += ` || {}).${path[i]}`;
-//     // }
-//     str += ` || {}).${path[i]}`;
-//   }
-//
-//   // const strFunc = `((memo = null) => (obj) => memo || (memo = ${str}))`
-//   // ((memo = null) => (obj) => memo || (memo = (obj || {}).c))
-//   const strFunc = `(memo = null) => (obj) => ${str}`
-//   console.log(strFunc, eval(strFunc).toString())
-//
-//   return eval(strFunc);
-// };
-
 const _find = (path) => {
   let str = 'obj';
 
   for (let i = 0; i < path.length; ++i) {
     str = `(${str}||{}).${path[i]}`;
   }
-
-  console.log(str);
 
   return eval(`(obj=>${str})`);
 };
