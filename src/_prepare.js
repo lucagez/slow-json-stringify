@@ -19,4 +19,4 @@ const _prepare = (schema) => {
   };
 };
 
-export default _prepare;
+module.exports = _prepare;

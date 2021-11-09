@@ -1,4 +1,4 @@
-const { attr } = require('../dist/sjs');
+const { attr } = require('../src/sjs');
 
 const data = {
   0: {

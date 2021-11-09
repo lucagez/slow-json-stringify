@@ -1,5 +1,7 @@
 const { expect } = require('chai');
-const { sjs } = require('../dist/sjs');
+const { sjs,
+  attr
+} = require('../src/sjs');
 
 /**
  * Testing undefined property support with complex structures.

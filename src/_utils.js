@@ -11,16 +11,13 @@
  * @param {array} path - path to reach object property.
  */
 const _find = (path) => {
-  const { length } = path;
-
   let str = 'obj';
 
-  for (let i = 0; i < length; i++) {
-    str = str.replace(/^/, '(');
-    str += ` || {}).${path[i]}`;
+  for (let i = 0; i < path.length; ++i) {
+    str = `(${str}||{}).${path[i]}`;
   }
 
-  return eval(`((obj) => ${str})`);
+  return eval(`(obj=>${str})`);
 };
 
 /**
@@ -78,7 +75,7 @@ const attr = (type, serializer) => {
 const defaultRegex = new RegExp('\\n|\\r|\\t|\\"|\\\\', 'gm');
 const escape = (regex = defaultRegex) => str => str.replace(regex, char => '\\' + char);
 
-export {
+module.exports = {
   _find,
   escape,
   attr,

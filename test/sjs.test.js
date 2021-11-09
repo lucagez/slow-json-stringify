@@ -1,5 +1,6 @@
+// const { sjs, escape, attr } = require('../dist/sjs');
 const { expect } = require('chai');
-const { sjs, escape, attr } = require('../dist/sjs');
+const { sjs, escape, attr } = require('../src/sjs.js');
 
 describe('Slow-json-stringify tests', () => {
   it('Should throw if unknown type is provided when defining a schema', () => {
@@ -333,5 +334,66 @@ describe('Slow-json-stringify tests', () => {
 
     expect(t.a).to.be.equal('a');
     expect(t.b.a).to.be.equal('a1');
+  });
+
+  it('Should serialize correctly objects with different undefined values with same serializer', () => {
+    const stringify = sjs({
+      a: attr('string'),
+      b: attr('number'),
+      c: attr('boolean'),
+    });
+
+    const aBefore = stringify({ a: 'world' }); // {"a":"world","c":true}
+    expect(aBefore).to.be.equal('{"a":"world"}');
+
+    // full input -> no issues
+    const complete = stringify({ a: 'world', b: 42, c: true }); // {"a":"world","b":42,"c":true}
+    expect(complete).to.be.equal('{"a":"world","b":42,"c":true}');
+
+    // lets remove "b" -> no issues
+    const outer = stringify({ a: 'world', c: true }); // {"a":"world","c":true}
+    expect(outer).to.be.equal('{"a":"world","c":true}');
+
+
+    // full input -> missing comma after "b"
+    const fullAfter = stringify({ a: 'world', b: 42, c: true }); // {"a":"world","b":42"c":true}
+    expect(fullAfter).to.be.equal('{"a":"world","b":42,"c":true}');
+
+    // lets remove "a" -> missing comma after "b"
+    const bc = stringify({ b: 42, c: true }); // {"b":42"c":true}
+    expect(bc).to.be.equal('{"b":42,"c":true}');
+
+    // full input -> missing two commas and one quotation mark
+    const afterFull = stringify({ a: 'world', b: 42, c: true }); // {"a":"world"b":42"c":true}
+    expect(afterFull).to.be.equal('{"a":"world","b":42,"c":true}');
+    // lets remove "b" -> no issues
+
+    const outerAgain = stringify({ a: 'world', c: true }); // {"a":"world","c":true}
+    expect(outerAgain).to.be.equal('{"a":"world","c":true}');
+
+    const a = stringify({ a: 'world' }); // {"a":"world","c":true}
+    expect(a).to.be.equal('{"a":"world"}');
+  });
+
+  it('Should serialize single property', () => {
+    const stringify = sjs({
+      a: attr('string'),
+      b: attr('number'),
+      c: attr('boolean'),
+    });
+
+    const aBefore = stringify({ a: 'world' }); // {"a":"world","c":true}
+    expect(aBefore).to.be.equal('{"a":"world"}');
+  });
+
+  it('Should serialize undefined object', () => {
+    const stringify = sjs({
+      a: attr('string'),
+      b: attr('number'),
+      c: attr('boolean'),
+    });
+
+    const aBefore = stringify(); // {"a":"world","c":true}
+    expect(aBefore).to.be.equal('{}');
   });
 });
