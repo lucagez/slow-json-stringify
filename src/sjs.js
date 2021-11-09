@@ -22,8 +22,6 @@ const sjs = (schema) => {
 
     let temp = '';
     for (let i = 0; i <= length; i++) {
-      // TODO: Export a single function
-      // const { serializer, find } = queue[i];
       temp += selectChunk(obj, i);
     }
 
