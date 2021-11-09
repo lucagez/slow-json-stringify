@@ -2,19 +2,21 @@
   "name": "slow-json-stringify",
   "version": "2.0.1",
   "description": "The slowest JSON stringifier in the galaxy (:",
-  "source": "src/sjs.mjs",
+  "source": "src/sjs.js",
   "main": "dist/sjs.js",
-  "module": "dist/sjs.mjs",
+  "module": "dist/sjs.js",
   "unpkg": "dist/sjs.umd.js",
   "types": "index.d.ts",
   "scripts": {
     "build": "microbundle",
+    "build:esbuild": "./node_modules/.bin/esbuild src/sjs.js --bundle --outfile=dist/sjs.js --minify --format=cjs",
     "build:dev": "microbundle watch",
     "lint": "eslint src/*.mjs test/*.js",
     "lint:fix": "eslint src/*.mjs test/*.js --fix",
     "test": "npm run build && mocha --timeout 10000 --recursive test",
     "ship": "rm -r dist && npm run build && npm publish",
-    "benchmark": "cd benchmark && sh run.sh"
+    "benchmark": "rm -rf dist && npm run build:esbuild && cd benchmark && sh run.sh",
+    "benchmark:no-build": "cd benchmark && sh run.sh"
   },
   "repository": {
     "type": "git",
@@ -24,11 +26,12 @@
     "benchmark": "^2.1.4",
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
+    "esbuild": "^0.13.12",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-plugin-import": "^2.18.0",
-    "fast-json-stringify": "^1.17.0",
-    "microbundle": "^0.11.0",
+    "fast-json-stringify": "^2.7.11",
+    "microbundle": "^0.14.1",
     "mocha": "^6.1.4"
   },
   "keywords": [

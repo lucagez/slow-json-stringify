@@ -8,24 +8,39 @@
  * @param {any} value - value to serialize.
  * @param {number} index - position inside the queue.
  */
-const _select = chunks => (value, index) => {
-  const chunk = chunks[index];
+const _select = chunks => {
+  return (hydratedQ, index) => {
+    const chunk = chunks[index];
+    const value = hydratedQ[index];
+    const prev = hydratedQ[index - 1];
+    const next = hydratedQ[index + 1];
 
-  if (typeof value !== 'undefined') {
-    if (chunk.flag) {
-      return chunk.prevUndef + value;
+    if (typeof value !== 'undefined') {
+      if (typeof prev === 'undefined') {
+        return chunk.prevUndef + value;
+      }
+      return chunk.pure + value;
     }
-    return chunk.pure + value;
-  }
 
-  // If the current value is undefined set a flag on the next
-  // chunk stating that the previous prop is undefined.
-  chunks[index + 1].flag = true;
+    // If the current value is undefined set a flag on the next
+    // chunk stating that the previous prop is undefined.
 
-  if (chunk.flag) {
-    return chunk.bothUndef;
-  }
-  return chunk.isUndef;
-};
+    if (typeof prev === 'undefined') {
+      return chunk.bothUndef;
+    }
+    if (typeof next === 'undefined') {
+      return chunk.nextUndef;
+    }
+    return chunk.isUndef;
+  };
+}
 
-export default _select;
+// TODO: should create multiple selectors for different
+// data types
+// const _select = chunks => (hydratedQ, index) => {
+//   const chunk = chunks[index];
+//   const value = hydratedQ[index];
+//   return chunk.pure + value;
+// };
+
+module.exports = _select;

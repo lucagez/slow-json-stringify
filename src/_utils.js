@@ -10,17 +10,40 @@
  *
  * @param {array} path - path to reach object property.
  */
-const _find = (path) => {
-  const { length } = path;
+// const _find = (path) => {
+//   const { length } = path;
+//   // let memo = null;
+//
+//   let str = 'obj';
+//
+//   for (let i = 0; i < length; i++) {
+//     str = str.replace(/^/, '(');
+//     // if (i === 0) {
+//     //   str += `).${path[i]}`;
+//     // } else {
+//     //   str += ` || {}).${path[i]}`;
+//     // }
+//     str += ` || {}).${path[i]}`;
+//   }
+//
+//   // const strFunc = `((memo = null) => (obj) => memo || (memo = ${str}))`
+//   // ((memo = null) => (obj) => memo || (memo = (obj || {}).c))
+//   const strFunc = `(memo = null) => (obj) => ${str}`
+//   console.log(strFunc, eval(strFunc).toString())
+//
+//   return eval(strFunc);
+// };
 
+const _find = (path) => {
   let str = 'obj';
 
-  for (let i = 0; i < length; i++) {
-    str = str.replace(/^/, '(');
-    str += ` || {}).${path[i]}`;
+  for (let i = 0; i < path.length; ++i) {
+    str = `(${str}||{}).${path[i]}`;
   }
 
-  return eval(`((obj) => ${str})`);
+  console.log(str);
+
+  return eval(`(obj=>${str})`);
 };
 
 /**
@@ -78,7 +101,7 @@ const attr = (type, serializer) => {
 const defaultRegex = new RegExp('\\n|\\r|\\t|\\"|\\\\', 'gm');
 const escape = (regex = defaultRegex) => str => str.replace(regex, char => '\\' + char);
 
-export {
+module.exports = {
   _find,
   escape,
   attr,

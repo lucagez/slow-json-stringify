@@ -1,4 +1,4 @@
-import { _find } from './_utils';
+const { _find } = require('./_utils.js');
 
 /**
  * @param {object} preparedSchema - schema already validated
@@ -6,7 +6,7 @@ import { _find } from './_utils';
  * @param {object} originalSchema - User provided schema
  * => contains array stringification serializers that are lost during preparation.
  */
-export default (preparedSchema, originalSchema) => {
+module.exports = (preparedSchema, originalSchema) => {
   const queue = [];
 
   // Defining a function inside an other function is slow.
