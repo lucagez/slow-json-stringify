@@ -8,10 +8,10 @@
  * @param {any} value - value to serialize.
  * @param {number} index - position inside the queue.
  */
-const _select = chunks => (value, index) => {
+const _select = (chunks) => (value, index) => {
   const chunk = chunks[index];
 
-  if (typeof value !== 'undefined') {
+  if (value !== undefined) {
     if (chunk.flag) {
       return chunk.prevUndef + value;
     }
@@ -28,4 +28,4 @@ const _select = chunks => (value, index) => {
   return chunk.isUndef;
 };
 
-export default _select;
+export { _select };
