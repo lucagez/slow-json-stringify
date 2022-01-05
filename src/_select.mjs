@@ -8,7 +8,7 @@
  * @param {any} value - value to serialize.
  * @param {number} index - position inside the queue.
  */
-const _select = (chunks, lastIndex) => (value, index) => {
+const _select = (chunks) => (value, index) => {
   const chunk = chunks[index];
 
   if (value !== undefined) {
@@ -20,10 +20,12 @@ const _select = (chunks, lastIndex) => (value, index) => {
 
   // If the current value is undefined set a flag on the next
   // chunk stating that the previous prop is undefined.
-  if (index !== lastIndex)
-    chunks[index + 1].flag = true;
+  chunks[index + 1].flag = true;
 
-  return chunk.flag ? chunk.bothUndef : chunk.isUndef;
+  if (chunk.flag) {
+    return chunk.bothUndef;
+  }
+  return chunk.isUndef;
 };
 
 export { _select };

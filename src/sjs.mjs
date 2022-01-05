@@ -14,21 +14,20 @@ const sjs = (schema) => {
   // during schema preparation => e.g. array stringification method.
   const queue = _makeQueue(_preparedSchema, schema);
   const chunks = _makeChunks(_preparedString, queue);
-  const chunkLength = chunks.length - 1
-  const selectChunk = _select(chunks, chunkLength);
+  const selectChunk = _select(chunks);
 
   // Exposed function
   return (obj) => {
     let temp = "";
 
     for (let i = 0; i < queue.length; ++i) {
-      const { serializer, find } = queue[i];
-      const raw = find(obj);
+      const { serializer, find } = queue[i]
+      const raw = find(obj)
 
-      temp += selectChunk(serializer(raw), i);
+      temp += selectChunk(serializer(raw), i)
     }
 
-    const { flag, pure, prevUndef } = chunks[chunkLength];
+    const { flag, pure, prevUndef } = chunks[chunks.length - 1];
 
     return temp + (flag ? prevUndef : pure);
   };
