@@ -29,7 +29,7 @@
     "eslint-plugin-import": "^2.18.0",
     "fast-json-stringify": "^1.17.0",
     "microbundle": "^0.11.0",
-    "mocha": "^6.1.4"
+    "mocha": "^10.2.0"
   },
   "keywords": [
     "stringify",
